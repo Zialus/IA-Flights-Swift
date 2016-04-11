@@ -48,7 +48,7 @@ public class StreamScanner : GeneratorType, SequenceType
                 availableData.length > 0,
                 let nextInput = NSString(data: availableData, encoding: NSUTF8StringEncoding)
             {
-                buffer = NSScanner(string: nextInput as String)
+                buffer = NSScanner(string: String(nextInput))
             }
         }
 

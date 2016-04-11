@@ -17,16 +17,6 @@ let file: NSFileHandle? = NSFileHandle(forReadingAtPath: "hello.swift")
 
 proccessCmdLineArgs()
 
-//let stdin = StreamScanner( source: NSFileHandle.fileHandleWithStandardInput(), delimiters: NSCharacterSet(charactersInString: ".") )
-//var linesList = [String]()
-//var index = 0
-//for line in stdin
-//{
-//    //    print(" \(index) : \(line)")
-//    //    index+=1
-//    linesList.append(line)
-//}
-
 let fileContent = try? NSString(contentsOfFile: filelocation, encoding: NSUTF8StringEncoding)
 
 //print(fileContent)
@@ -85,14 +75,14 @@ else{
 
             let delimiter = ";"
             let tokens = moreevenmorefinalthirdpart.componentsSeparatedByString(delimiter)
-            
+
             for t in tokens {
-                
+
                 //            print("ola: \(t)")
-                
+
                 let delimiter = "/"
                 let inside_tokens = t.componentsSeparatedByString(delimiter)
-                
+
                 for inside_t in inside_tokens{
                     print("l: \(inside_t)")
                     
@@ -101,8 +91,6 @@ else{
             }
             
         }
-        
-        
         
         
     }

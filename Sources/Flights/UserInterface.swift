@@ -13,8 +13,7 @@ func proccessCmdLineArgs() -> () {
     if Process.arguments.count == 1 {
         print("Too few arguments!")
         exit(1)
-    }
-    else if Process.arguments.count > 3 {
+    } else if Process.arguments.count > 3 {
         print("Too many arguments!")
         exit(1)
     } else if Process.arguments.count == 3 {
@@ -40,7 +39,7 @@ func proccessCmdLineArgs() -> () {
             exit(1)
         }
 
-    } else if Process.arguments.count == 2{
+    } else if Process.arguments.count == 2 {
         print("Welcome to a silly little app that does stuff!\n")
 
         print("All debug functionality is turned OFF")

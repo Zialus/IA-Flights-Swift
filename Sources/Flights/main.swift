@@ -21,12 +21,10 @@ let fileContent = try? NSString(contentsOfFile: filelocation, encoding: NSUTF8St
 
 //print(fileContent)
 
-if fileContent == nil{
+if fileContent == nil {
     print("Something went wrong")
     exit(1)
-}
-
-else{
+} else {
 
     let delimiter = "."
     let linesList = fileContent!.componentsSeparatedByString(delimiter)
@@ -39,9 +37,9 @@ else{
         //print(line)
 
         let newline1 = line.stringByReplacingOccurrencesOfString("timetable(", withString: "")
-        let newline2 = newline1.stringByReplacingOccurrencesOfString("\n",withString: "")
-        let newline3 = newline2.stringByReplacingOccurrencesOfString("\t",withString: "")
-        let newline4 = newline3.stringByReplacingOccurrencesOfString(" ",withString: "")
+        let newline2 = newline1.stringByReplacingOccurrencesOfString("\n", withString: "")
+        let newline3 = newline2.stringByReplacingOccurrencesOfString("\t", withString: "")
+        let newline4 = newline3.stringByReplacingOccurrencesOfString(" ", withString: "")
 
 
         if let comma_range = newline4.rangeOfString(","),
@@ -83,17 +81,17 @@ else{
                 let delimiter = "/"
                 let inside_tokens = t.componentsSeparatedByString(delimiter)
 
-                for inside_t in inside_tokens{
+                for inside_t in inside_tokens {
                     print("l: \(inside_t)")
-                    
+
                 }
-                
+
             }
-            
+
         }
-        
-        
+
+
     }
-    
-    
+
+
 }

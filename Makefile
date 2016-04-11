@@ -1,5 +1,5 @@
 all:
-	swift build
+	swift build -Xswiftc -O
 	mv ./.build/debug/Flights .
 
 clean:

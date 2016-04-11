@@ -9,12 +9,12 @@
 import Foundation
 
 class Airport {
-    let City: String
-    var Flights: [FlightInfo]
+    let city: String
+    var flights: [FlightInfo]
 
-    init(City: String) {
-        self.City = City
-        self.Flights = []
+    init(city: String) {
+        self.city = city
+        self.flights = []
     }
-    
+
 }

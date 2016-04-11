@@ -9,16 +9,14 @@
 import Foundation
 
 class FlightInfo {
-    let Code: String
+    let code: String
 //    let Source: String
-    let Destination: String
-    let TimeLeaving:Int
-    let TimeArrival:Int
-    let Days: [String]
+    let destination: String
+    let timeLeaving: Int
+    let timeArrival: Int
+    let days: [String]
 
-
-
-    init(Code: String, Destination: String, TimeLeaving:Int, TimeArrival:Int, Days: [String]) {
+    init(code: String, destination: String, timeLeaving: Int, timeArrival: Int, days: [String]) {
         self.Code = Code
         self.Destination = Destination
         self.TimeLeaving = TimeLeaving

@@ -124,7 +124,7 @@ public class StreamScanner : GeneratorType, SequenceType
         default :
             ret = nil
         }
-
+        
         return ret
     }
 }

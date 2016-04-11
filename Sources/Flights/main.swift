@@ -8,34 +8,104 @@
 
 import Foundation
 
-print("Hello, World!")
+// Store debug information that will be given by cmdline args
+var DEBUG = false
+var FULLDEBUG = false
+var filelocation: String = ""
 
-let stdin = StreamScanner( source: NSFileHandle.fileHandleWithStandardInput(), delimiters: NSCharacterSet(charactersInString: ".") )
+let file: NSFileHandle? = NSFileHandle(forReadingAtPath: "hello.swift")
 
-var linesList = [String]()
+proccessCmdLineArgs()
 
+//let stdin = StreamScanner( source: NSFileHandle.fileHandleWithStandardInput(), delimiters: NSCharacterSet(charactersInString: ".") )
+//var linesList = [String]()
 //var index = 0
-for line in stdin
-{
-    //    print(" \(index) : \(line)")
-    //    index+=1
-    linesList.append(line)
+//for line in stdin
+//{
+//    //    print(" \(index) : \(line)")
+//    //    index+=1
+//    linesList.append(line)
+//}
+
+let fileContent = try? NSString(contentsOfFile: filelocation, encoding: NSUTF8StringEncoding)
+
+//print(fileContent)
+
+if fileContent == nil{
+    print("Something went wrong")
+    exit(1)
 }
 
-for line in linesList {
+else{
 
-    print("----here is a line----")
-    //print(line)
+    let delimiter = "."
+    let linesList = fileContent!.componentsSeparatedByString(delimiter)
 
-    let newstr = line.stringByReplacingOccurrencesOfString("timetable(", withString: "")
-    let newnewstr = line.stringByReplacingOccurrencesOfString("\n",withString: "")
+    var airpoirtList = [Airport]()
 
-    let delimiter = ","
-    let token = newnewstr.componentsSeparatedByString(delimiter)
-    print ("Source: \(token[0])" )
-    print ("Destination: \(token[1])" )
-    print ("LOL2: \(token[2])" )
+    for line in linesList {
 
-    print("----there it was------")
+        print("----here is a line----")
+        //print(line)
 
+        let newline1 = line.stringByReplacingOccurrencesOfString("timetable(", withString: "")
+        let newline2 = newline1.stringByReplacingOccurrencesOfString("\n",withString: "")
+        let newline3 = newline2.stringByReplacingOccurrencesOfString("\t",withString: "")
+        let newline4 = newline3.stringByReplacingOccurrencesOfString(" ",withString: "")
+
+
+        if let comma_range = newline4.rangeOfString(","),
+            let left_bracket = newline4.rangeOfString("[") {
+            let firstPart = newline4[newline4.startIndex..<comma_range.startIndex]
+            let secondPart = newline4[comma_range.startIndex..<left_bracket.startIndex]
+            let thirdPart = newline4[left_bracket.startIndex..<newline4.endIndex]
+
+            //-------------At this point i know the source airport-----------⁄
+            print("Source:")
+            print(firstPart)
+            let airport_tmp = Airport(City: firstPart)
+            airpoirtList.append(airport_tmp)
+
+            print("Destination:")
+
+            let secondPartFinal = secondPart[secondPart.startIndex.advancedBy(1)..<secondPart.endIndex.advancedBy(-1)]
+
+            print(secondPartFinal)
+
+            let thirdPartFinal = thirdPart[ thirdPart.startIndex.advancedBy(1)..<thirdPart.endIndex.advancedBy(-2)   ]
+
+
+            let evenmorefinalthirdpart = thirdPartFinal.stringByReplacingOccurrencesOfString("],",withString: "];")
+            let moreevenmorefinalthirdpart = evenmorefinalthirdpart.stringByReplacingOccurrencesOfString("alldays,",withString: "alldays;")
+
+
+            //        print("Third:")
+            //        print(moreevenmorefinalthirdpart)
+
+
+            let delimiter = ";"
+            let tokens = moreevenmorefinalthirdpart.componentsSeparatedByString(delimiter)
+            
+            for t in tokens {
+                
+                //            print("ola: \(t)")
+                
+                let delimiter = "/"
+                let inside_tokens = t.componentsSeparatedByString(delimiter)
+                
+                for inside_t in inside_tokens{
+                    print("l: \(inside_t)")
+                    
+                }
+                
+            }
+            
+        }
+        
+        
+        
+        
+    }
+    
+    
 }

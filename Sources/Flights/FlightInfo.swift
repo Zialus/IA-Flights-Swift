@@ -17,11 +17,11 @@ class FlightInfo {
     let days: [String]
 
     init(code: String, destination: String, timeLeaving: Int, timeArrival: Int, days: [String]) {
-        self.Code = Code
-        self.Destination = Destination
-        self.TimeLeaving = TimeLeaving
-        self.TimeArrival = TimeArrival
-        self.Days = Days
+        self.code = code
+        self.destination = destination
+        self.timeLeaving = timeLeaving
+        self.timeArrival = timeArrival
+        self.days = days
     }
 
 }

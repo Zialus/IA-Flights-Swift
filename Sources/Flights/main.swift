@@ -51,13 +51,12 @@ if fileContent == nil {
             //-------------At this point i know the source airport-----------⁄
             print("Source:")
             print(firstPart)
-            let airport_tmp = Airport(City: firstPart)
+            let airport_tmp = Airport(city: firstPart)
             airpoirtList.append(airport_tmp)
 
-            print("Destination:")
 
             let secondPartFinal = secondPart[secondPart.startIndex.advancedBy(1)..<secondPart.endIndex.advancedBy(-1)]
-
+            print("Destination:")
             print(secondPartFinal)
 
             let thirdPartFinal = thirdPart[ thirdPart.startIndex.advancedBy(1)..<thirdPart.endIndex.advancedBy(-2)   ]
@@ -85,6 +84,9 @@ if fileContent == nil {
                     print("l: \(inside_t)")
 
                 }
+
+//                let flight = FlightInfo( code: String, destination: String, timeLeaving: Int, timeArrival: Int, days: [String])
+
 
             }
 

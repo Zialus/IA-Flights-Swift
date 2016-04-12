@@ -8,16 +8,6 @@
 
 import Foundation
 
-
-//let teste = "16:10"
-//let dateFormatter = NSDateFormatter()
-//dateFormatter.dateFormat = "HH:mm"
-//dateFormatter.dateFromString(teste)
-//
-//print(teste)
-
-
-
 func == (lhs: Airport, rhs: Airport) -> Bool {
     return lhs.city == rhs.city
 }
@@ -36,6 +26,18 @@ proccessCmdLineArgs()
 
 processFile()
 
-let result = findDirectFlight("zurich", Destination: "ljubljana")
 
-print("There are flights available in \(result.count) different days \nThe days are: \(result)")
+while true {
+    switch menu(){
+    case 1:
+        search_direct_flights()
+        //    case 2:
+        //        search_routes()
+        //    case 3:
+        //        search_circuits()
+
+    default:
+        print ("Invalid option!")
+    }
+    
+}

@@ -47,3 +47,59 @@ func proccessCmdLineArgs() -> () {
     }
 
 }
+
+
+func menu() -> (Int) {
+    print ("\nMenu:")
+    print ("(1) Search Direct Flights")
+    print ("(2) Search Routes")
+    print ("(3) Search Circuits")
+    print ("Choose your option:")
+
+
+    if let userInput = readLine(stripNewline: true) {
+        if let res = Int(userInput){
+            return res
+        }
+    }
+
+    return 0
+
+}
+
+func search_direct_flights() -> () {
+
+    var origin: String? = nil
+    var destination: String? = nil
+
+    while origin == nil{
+
+        print( "\nInsert the departure city name:")
+        if let userInput = readLine(stripNewline: true) {
+            origin = userInput
+        }
+        else{
+            print("something weird happend...")
+        }
+
+    }
+
+    while destination == nil{
+
+        print("Insert the arrival city name:")
+        if let userInput = readLine(stripNewline: true) {
+            destination = userInput
+        }
+        else{
+            print("something weird happend...")
+        }
+
+    }
+
+
+    let result = findDirectFlight(origin!, Destination: destination!)
+
+    print("There are flights available in \(result.count) different days \nThe days are: \(result)")
+
+
+}

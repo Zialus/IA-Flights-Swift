@@ -30,7 +30,7 @@ extension Airport: CustomStringConvertible {
 extension Airport: Hashable {
 
     var hashValue: Int {
-        return description.hashValue
+        return self.city.hashValue
     }
     
 }

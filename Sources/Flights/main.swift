@@ -8,6 +8,21 @@
 
 import Foundation
 
+
+let teste = "16:10"
+let dateFormatter = NSDateFormatter()
+dateFormatter.dateFormat = "HH:mm"
+dateFormatter.dateFromString(teste)
+
+print(teste)
+
+
+
+func == (lhs: Airport, rhs: Airport) -> Bool {
+    return lhs.city == rhs.city
+}
+
+
 // Store debug information that will be given by cmdline args
 var DEBUG = false
 var FULLDEBUG = false
@@ -22,14 +37,14 @@ let fileContent = try? NSString(contentsOfFile: filelocation, encoding: NSUTF8St
 //print(fileContent)
 
 if fileContent == nil {
-    print("Something went wrong")
+    print("Something went wrong when opening the file: \(filelocation)")
     exit(1)
 } else {
 
     let delimiter = "."
     let linesList = fileContent!.componentsSeparatedByString(delimiter)
 
-    var airpoirtList = [Airport]()
+    var airportList = Set<Airport>()
 
     for line in linesList {
 
@@ -44,20 +59,21 @@ if fileContent == nil {
 
         if let comma_range = newline4.rangeOfString(","),
             let left_bracket = newline4.rangeOfString("[") {
-            let firstPart = newline4[newline4.startIndex..<comma_range.startIndex]
+            let flightSource = newline4[newline4.startIndex..<comma_range.startIndex]
             let secondPart = newline4[comma_range.startIndex..<left_bracket.startIndex]
             let thirdPart = newline4[left_bracket.startIndex..<newline4.endIndex]
 
             //-------------At this point i know the source airport-----------⁄
             print("Source:")
-            print(firstPart)
-            let airport_tmp = Airport(city: firstPart)
-            airpoirtList.append(airport_tmp)
+            print(flightSource)
+            let airport_tmp = Airport(city: flightSource)
+
+            airportList.insert(airport_tmp)
 
 
-            let secondPartFinal = secondPart[secondPart.startIndex.advancedBy(1)..<secondPart.endIndex.advancedBy(-1)]
+            let flightDestination = secondPart[secondPart.startIndex.advancedBy(1)..<secondPart.endIndex.advancedBy(-1)]
             print("Destination:")
-            print(secondPartFinal)
+            print(flightDestination)
 
             let thirdPartFinal = thirdPart[ thirdPart.startIndex.advancedBy(1)..<thirdPart.endIndex.advancedBy(-2)   ]
 
@@ -71,29 +87,79 @@ if fileContent == nil {
 
 
             let delimiter = ";"
-            let tokens = moreevenmorefinalthirdpart.componentsSeparatedByString(delimiter)
+            let listOfInfos = moreevenmorefinalthirdpart.componentsSeparatedByString(delimiter)
 
-            for t in tokens {
+            for wholeInfo in listOfInfos {
 
-                //            print("ola: \(t)")
+                print("-----: ola: -----")
 
                 let delimiter = "/"
-                let inside_tokens = t.componentsSeparatedByString(delimiter)
+                let infos = wholeInfo.componentsSeparatedByString(delimiter)
 
-                for inside_t in inside_tokens {
-                    print("l: \(inside_t)")
+                let tmp_timeLeaving = infos[0]
+                let tmp_timeArrival = infos[1]
+                let tmp_code = infos[2]
+                let _tmp_days = infos[3]
+
+                var tmp_days: [String:Bool] = [:]
+
+                if _tmp_days == "alldays"{
+
+                    tmp_days["mo"] = true
+                    tmp_days["tu"] = true
+                    tmp_days["wd"] = true
+                    tmp_days["th"] = true
+                    tmp_days["fr"] = true
+                    tmp_days["st"] = true
+                    tmp_days["su"] = true
+                }
+
+                else {
+
+
+                    let delimiter = ","
+                    let days_info = _tmp_days.componentsSeparatedByString(delimiter)
+
+
+                    for lol in days_info{
+                        tmp_days[lol]=true
+                    }
 
                 }
 
-//                let flight = FlightInfo( code: String, destination: String, timeLeaving: Int, timeArrival: Int, days: [String])
+                let flight = FlightInfo( code: tmp_code, destination: flightDestination, timeLeaving: tmp_timeLeaving, timeArrival: tmp_timeArrival, days: tmp_days)
+                
 
+                let tmp_airport_hack = Airport(city: flightSource)
+                let indexAirport = airportList.indexOf(tmp_airport_hack)
+                var addtoThisAirport = airportList[indexAirport!]
 
+                addtoThisAirport.flights.append(flight)
+
+                //                for info in infos {
+                //                    print("\(info)")
+                //
+                //                }
+                
+                print("-----: adeus: -----")
+                
+                
+                
+                
             }
-
+            
         }
-
-
+        
+        
     }
 
 
+    print("PROCESSED EVERYTHING")
+
+    for crap in airportList{
+        print(crap)
+        print("------")
+    }
+
+    
 }

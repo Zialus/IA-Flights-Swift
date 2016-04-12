@@ -18,3 +18,19 @@ class Airport {
     }
 
 }
+
+extension Airport: CustomStringConvertible {
+
+    var description: String {
+        return "City: \(city) --- Flights: \(flights)"
+    }
+    
+}
+
+extension Airport: Hashable {
+
+    var hashValue: Int {
+        return description.hashValue
+    }
+    
+}

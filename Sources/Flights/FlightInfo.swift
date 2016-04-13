@@ -12,15 +12,15 @@ class FlightInfo {
     let code: String
 //    let Source: String
     let destination: String
-    let timeLeaving: String
-    let timeArrival: String
+    let timeLeaving: Int
+    let timeArrival: Int
     let days: [String:Bool]
 
     init(code: String, destination: String, timeLeaving: String, timeArrival: String, days: [String:Bool]) {
         self.code = code
         self.destination = destination
-        self.timeLeaving = timeLeaving
-        self.timeArrival = timeArrival
+        self.timeLeaving = time_to_mins(timeLeaving)
+        self.timeArrival = time_to_mins(timeArrival)
         self.days = days
     }
 

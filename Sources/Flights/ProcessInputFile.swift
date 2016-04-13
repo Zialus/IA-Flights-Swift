@@ -45,7 +45,7 @@ func processFile () {
                 let airport_tmp = Airport(city: flightSource)
 
 
-                if !airportList.contains(airport_tmp){
+                if !airportList.contains(airport_tmp) {
                     airportList.insert(airport_tmp)
                 }
 
@@ -112,7 +112,7 @@ func processFile () {
                         let days_info = more_more_tmp_days.componentsSeparatedByString(delimiter)
 
 
-                        for lol in days_info{
+                        for lol in days_info {
                             tmp_days[lol]=true
                         }
 
@@ -145,7 +145,7 @@ func processFile () {
         
         print("PROCESSED EVERYTHING")
         
-        for crap in airportList{
+        for crap in airportList {
             print("-----$$$$START$$$$----")
             print(crap.city)
             print("numero")

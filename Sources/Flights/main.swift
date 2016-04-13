@@ -26,9 +26,8 @@ proccessCmdLineArgs()
 
 processFile()
 
-
 while true {
-    switch menu(){
+    switch menu() {
     case 1:
         search_direct_flights()
         //    case 2:
@@ -39,5 +38,5 @@ while true {
     default:
         print ("Invalid option!")
     }
-    
+
 }

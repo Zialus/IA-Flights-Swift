@@ -99,7 +99,7 @@ func search_direct_flights() -> () {
 
     print("\nChecking flights between \(origin!) and \(destination!)...\n")
 
-    let result = findDirectFlight(origin!, Destination: destination!)
+    let result = findDirectFlight(origin!, destination: destination!)
 
     if result.count == 0{
         print("There are no flights available between \(origin!) and \(destination!) !")

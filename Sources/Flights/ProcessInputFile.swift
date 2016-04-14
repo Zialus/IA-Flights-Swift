@@ -61,8 +61,8 @@ func processFile () {
                 let moreevenmorefinalthirdpart = evenmorefinalthirdpart.stringByReplacingOccurrencesOfString("alldays,",withString: "alldays;")
 
 
-                        print("Third:")
-                        print(moreevenmorefinalthirdpart)
+                print("Third:")
+                print(moreevenmorefinalthirdpart)
 
 
                 let delimiter = ";"
@@ -90,7 +90,7 @@ func processFile () {
                     tmp_days["sa"] = false
                     tmp_days["su"] = false
 
-                    if _tmp_days == "alldays"{
+                    if _tmp_days == "alldays" {
 
                         tmp_days["mo"] = true
                         tmp_days["tu"] = true
@@ -99,9 +99,7 @@ func processFile () {
                         tmp_days["fr"] = true
                         tmp_days["sa"] = true
                         tmp_days["su"] = true
-                    }
-
-                    else {
+                    } else {
 
 
                         let more_tmp_days = _tmp_days.stringByReplacingOccurrencesOfString("[", withString: "")
@@ -118,17 +116,16 @@ func processFile () {
 
                     }
 
-                    let flight = FlightInfo( code: tmp_code, destination: flightDestination, timeLeaving: tmp_timeLeaving, timeArrival: tmp_timeArrival, days: tmp_days)
+                    let flight = FlightInfo(code: tmp_code, destination: flightDestination, timeLeaving: tmp_timeLeaving, timeArrival: tmp_timeArrival, days: tmp_days)
 
-                    
                     let tmp_airport_hack = Airport(city: flightSource)
                     let indexAirport = airportList.indexOf(tmp_airport_hack)
                     airportList[indexAirport!].flights.append(flight)
-                    
-                    //                for info in infos {
-                    //                    print("\(info)")
-                    //
-                    //                }
+
+                    for info in infos {
+                        print("\(info)")
+                        
+                    }
                     
                     print("-----: adeus: -----")
                     
@@ -154,7 +151,7 @@ func processFile () {
             print(crap.flights)
             print("-----$$$$FIM$$$$----")
         }
-
+        
         
     }
     

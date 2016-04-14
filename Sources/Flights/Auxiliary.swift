@@ -8,7 +8,7 @@
 
 import Foundation
 
-func time_to_mins(timeString: String) -> (Int) {
+func timeToMins(timeString: String) -> (Int) {
 
     let delimiter = ":"
     let parts = timeString.componentsSeparatedByString(delimiter)

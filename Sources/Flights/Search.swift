@@ -38,7 +38,7 @@ func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
 }
 
 
-func find_route_same_day(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> ([String]) {
+func findRouteSameDay(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> ([String]) {
 
     var route = [String]()
 
@@ -59,13 +59,20 @@ func find_route_same_day(origin origin: String, arrival: String, currentDay: Str
             if flight.timeLeaving >= currentTime + 40 {
 
                 route.append(currentCity)
+                route.append("->")
+                route.append(" \(flight.code) , \(String(flight.timeLeaving)) , \(String(flight.timeArrival))")
+                route.append("->")
 
-                find_route_same_day(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeLeaving)
+                route += findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeLeaving)
 
+                if route[route.endIndex.advancedBy(-1)] == arrival {
+                    return route
+                }
             }
 
         }
 
+        route.append("LOOOOOL")
 
 
     } else {
@@ -73,9 +80,6 @@ func find_route_same_day(origin origin: String, arrival: String, currentDay: Str
         // THIS IS THE CASE WHERE THE AIRPORT DOESNT EXIST
         exit(1)
     }
-
-
-
 
 
     return route

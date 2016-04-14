@@ -10,7 +10,6 @@ import Foundation
 
 class FlightInfo {
     let code: String
-//    let Source: String
     let destination: String
     let timeLeaving: Int
     let timeArrival: Int
@@ -19,8 +18,8 @@ class FlightInfo {
     init(code: String, destination: String, timeLeaving: String, timeArrival: String, days: [String:Bool]) {
         self.code = code
         self.destination = destination
-        self.timeLeaving = time_to_mins(timeLeaving)
-        self.timeArrival = time_to_mins(timeArrival)
+        self.timeLeaving = timeToMins(timeLeaving)
+        self.timeArrival = timeToMins(timeArrival)
         self.days = days
     }
 

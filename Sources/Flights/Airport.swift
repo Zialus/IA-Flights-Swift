@@ -24,7 +24,7 @@ extension Airport: CustomStringConvertible {
     var description: String {
         return "City: \(city) --- Flights: \(flights)"
     }
-    
+
 }
 
 extension Airport: Hashable {
@@ -32,5 +32,5 @@ extension Airport: Hashable {
     var hashValue: Int {
         return self.city.hashValue
     }
-    
+
 }

@@ -29,9 +29,9 @@ processFile()
 while true {
     switch menu() {
     case 1:
-        search_direct_flights()
-        //    case 2:
-        //        search_routes()
+        searchDirectFlights()
+    case 2:
+        searchRoutes()
         //    case 3:
         //        search_circuits()
 

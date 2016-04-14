@@ -40,9 +40,9 @@ func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
 
 func findRouteSameDay(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> ([String]) {
 
-    var route = [String]()
 
     if currentCity==arrival {
+        var route = [String]()
         route.append(currentCity)
         return route
     }
@@ -58,30 +58,32 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 
             if flight.timeLeaving >= currentTime + 40 {
 
+                print(" \(flight.timeLeaving) --- \(currentTime) $$$$$$$$$$$$%%%%%%%%%%")
+
+                var route = [String]()
+
                 route.append(currentCity)
                 route.append("->")
-                route.append(" \(flight.code) , \(String(flight.timeLeaving)) , \(String(flight.timeArrival))")
+                route.append("Code: \(flight.code), Time: \(minsToTime(flight.timeLeaving))/\(minsToTime(flight.timeArrival))")
                 route.append("->")
 
-                route += findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeLeaving)
+                route += findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeArrival)
 
-                if route[route.endIndex.advancedBy(-1)] == arrival {
+                if route.last == arrival {
                     return route
                 }
             }
-
+            
         }
-
-        route.append("LOOOOOL")
-
-
+        
+        
+        
     } else {
-        // COMPLETE THIS
-        // THIS IS THE CASE WHERE THE AIRPORT DOESNT EXIST
-        exit(1)
+        print("The departure airport does not exist")
     }
-
-
+    
+    let route = [String]()
+    
     return route
-
+    
 }

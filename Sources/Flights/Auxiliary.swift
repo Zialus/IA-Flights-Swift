@@ -19,3 +19,13 @@ func timeToMins(timeString: String) -> (Int) {
     return (hours * 60 + mins)
 
 }
+
+func minsToTime(timeInt: Int) -> (String) {
+
+    let hours = timeInt / 60
+    let mins = timeInt % 60
+    let delimiter = ":"
+
+    return "\(hours)\(delimiter)\(mins)"
+    
+}

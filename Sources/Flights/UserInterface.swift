@@ -115,22 +115,52 @@ func searchRoutes() {
     var destination: String! = nil
     var day: String! = nil
 
-    while origin == nil {
+    originLoop: while origin == nil {
 
         print("\nInsert the departure city name:")
         if let userInput = readLine(stripNewline: true) {
-            origin = userInput
+
+            let airportOrigin = Airport(city: userInput)
+
+            if !airportList.contains(airportOrigin) {
+                print()
+                print("The city: \"\(userInput)\" does not have an airport!")
+                print()
+                sleep(1)
+                continue originLoop
+
+            } else {
+                origin = userInput
+            }
+
+
+
         } else {
             print("something weird happend...")
         }
 
     }
 
-    while destination == nil {
+    destinationLoop: while destination == nil {
 
         print("Insert the arrival city name:")
         if let userInput = readLine(stripNewline: true) {
-            destination = userInput
+
+            let airportDestination = Airport(city: userInput)
+
+            if !airportList.contains(airportDestination) {
+                print()
+                print("The city: \"\(userInput)\" does not have an airport!")
+                print()
+                sleep(1)
+                continue destinationLoop
+
+            } else {
+
+                destination = userInput
+            }
+
+
         } else {
             print("something weird happend...")
         }

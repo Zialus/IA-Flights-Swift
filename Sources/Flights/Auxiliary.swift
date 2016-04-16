@@ -27,5 +27,5 @@ func minsToTime(timeInt: Int) -> (String) {
     let delimiter = ":"
 
     return "\(hours)\(delimiter)\(mins)"
-    
+
 }

@@ -124,24 +124,21 @@ func processFile () {
 
                     for info in infos {
                         print("\(info)")
-                        
+
                     }
-                    
+
                     print("-----: adeus: -----")
-                    
-                    
-                    
-                    
+
+
                 }
-                
+
             }
-            
-            
+
         }
-        
-        
+
+
         print("PROCESSED EVERYTHING")
-        
+
         for crap in airportList {
             print("-----$$$$START$$$$----")
             print(crap.city)
@@ -151,8 +148,8 @@ func processFile () {
             print(crap.flights)
             print("-----$$$$FIM$$$$----")
         }
-        
-        
+
+
     }
-    
+
 }

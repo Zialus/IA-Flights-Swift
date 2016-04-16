@@ -58,8 +58,6 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 
             if flight.timeLeaving >= currentTime + 40 {
 
-                print(" \(flight.timeLeaving) --- \(currentTime) $$$$$$$$$$$$%%%%%%%%%%")
-
                 var route = [String]()
 
                 route.append(currentCity)
@@ -73,17 +71,15 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
                     return route
                 }
             }
-            
+
         }
-        
-        
-        
+
     } else {
         print("The departure airport does not exist")
     }
-    
+
     let route = [String]()
-    
+
     return route
-    
+
 }

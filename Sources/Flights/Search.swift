@@ -1,10 +1,3 @@
-//
-//  Search.swift
-//  Flights
-//
-//  Created by Raul Ferreira on 4/12/16.
-//  Copyright © 2016 FCUP. All rights reserved.
-//
 
 import Foundation
 
@@ -37,9 +30,7 @@ func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
 
 }
 
-
 func findRouteSameDay(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> ([String]) {
-
 
     if currentCity==arrival {
         var route = [String]()
@@ -53,7 +44,6 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 
         let indexAirport = airportList.indexOf(airportCity)
 
-
         for flight in airportList[indexAirport!].flights where flight.days[currentDay] == true {
 
             if flight.timeLeaving >= currentTime + 40 {
@@ -61,9 +51,9 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
                 var route = [String]()
 
                 route.append(currentCity)
-                route.append("->")
+                route.append("-->taking this flight-->")
                 route.append("Code: \(flight.code), Time: \(minsToTime(flight.timeLeaving))/\(minsToTime(flight.timeArrival))")
-                route.append("->")
+                route.append("-->arriving at-->")
 
                 route += findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeArrival)
 
@@ -71,15 +61,27 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
                     return route
                 }
             }
-
+            
         }
-
+        
     } else {
         print("The departure airport does not exist")
     }
+    
+    let route = [String]()
+    
+    return route
+    
+}
+
+func findCircuits(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int, citiesToVisit: [String]) -> ([String]) {
+
+    if citiesToVisit.isEmpty {
+        let route = findRouteSameDay(origin: currentCity, arrival: arrival, currentDay: currentDay, currentCity: currentCity, currentTime: 0)
+        return route
+    }
 
     let route = [String]()
-
     return route
 
 }

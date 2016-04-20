@@ -1,10 +1,3 @@
-//
-//  Auxiliary.swift
-//  Flights
-//
-//  Created by Raul Ferreira on 4/13/16.
-//  Copyright © 2016 FCUP. All rights reserved.
-//
 
 import Foundation
 

@@ -29,3 +29,11 @@ func minsToTime(timeInt: Int) -> (String) {
     return "\(hours)\(delimiter)\(mins)"
 
 }
+
+func printdebug(string: String) -> () {
+
+    if DEBUG == true{
+        print(string)
+    }
+
+}

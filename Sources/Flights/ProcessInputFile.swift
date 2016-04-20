@@ -1,10 +1,4 @@
 //
-//  ProcessInputFile.swift
-//  Flights
-//
-//  Created by Raul Ferreira on 4/12/16.
-//  Copyright © 2016 FCUP. All rights reserved.
-//
 
 import Foundation
 
@@ -15,7 +9,7 @@ func processFile () {
     //print(fileContent)
 
     if fileContent == nil {
-        print("Something went wrong when opening the file: \(filelocation)")
+        print("Something went wrong when trying to open the file: \(filelocation)")
         exit(1)
     } else {
 
@@ -24,7 +18,8 @@ func processFile () {
 
         for line in linesList {
 
-            print("----here is a line----")
+            printdebug("###########  Begining of line  ########")
+
             //print(line)
 
             let newline1 = line.stringByReplacingOccurrencesOfString("timetable(", withString: "")
@@ -40,8 +35,8 @@ func processFile () {
                 let thirdPart = newline4[left_bracket.startIndex..<newline4.endIndex]
 
                 //-------------At this point i know the source airport-----------⁄
-                print("Source:")
-                print(flightSource)
+                printdebug("Source:")
+                printdebug(flightSource)
                 let airport_tmp = Airport(city: flightSource)
 
 
@@ -51,8 +46,8 @@ func processFile () {
 
 
                 let flightDestination = secondPart[secondPart.startIndex.advancedBy(1)..<secondPart.endIndex.advancedBy(-1)]
-                print("Destination:")
-                print(flightDestination)
+                printdebug("Destination:")
+                printdebug(flightDestination)
 
                 let thirdPartFinal = thirdPart[ thirdPart.startIndex.advancedBy(1)..<thirdPart.endIndex.advancedBy(-2)   ]
 
@@ -60,17 +55,15 @@ func processFile () {
                 let evenmorefinalthirdpart = thirdPartFinal.stringByReplacingOccurrencesOfString("],",withString: "];")
                 let moreevenmorefinalthirdpart = evenmorefinalthirdpart.stringByReplacingOccurrencesOfString("alldays,",withString: "alldays;")
 
-
-                print("Third:")
-                print(moreevenmorefinalthirdpart)
-
+                printdebug("Third:")
+                printdebug(moreevenmorefinalthirdpart)
 
                 let delimiter = ";"
                 let listOfInfos = moreevenmorefinalthirdpart.componentsSeparatedByString(delimiter)
 
                 for wholeInfo in listOfInfos {
 
-                    print("-----: ola: -----")
+                    printdebug("-----: ola :-----")
 
                     let delimiter = "/"
                     let infos = wholeInfo.componentsSeparatedByString(delimiter)
@@ -91,7 +84,6 @@ func processFile () {
                     tmp_days["su"] = false
 
                     if _tmp_days == "alldays" {
-
                         tmp_days["mo"] = true
                         tmp_days["tu"] = true
                         tmp_days["we"] = true
@@ -100,7 +92,6 @@ func processFile () {
                         tmp_days["sa"] = true
                         tmp_days["su"] = true
                     } else {
-
 
                         let more_tmp_days = _tmp_days.stringByReplacingOccurrencesOfString("[", withString: "")
                         let more_more_tmp_days = more_tmp_days.stringByReplacingOccurrencesOfString("]", withString: "")
@@ -123,30 +114,36 @@ func processFile () {
                     airportList[indexAirport!].flights.append(flight)
 
                     for info in infos {
-                        print("\(info)")
+                        printdebug("\(info)")
 
                     }
 
-                    print("-----: adeus: -----")
+                    printdebug("-----: adeus: -----")
 
 
                 }
 
             }
 
+            printdebug("###########  End of line  #############")
+
         }
 
+        print()
+        print("/----------------------------------------------------------------------\\")
+        print("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|")
+        print("\\----------------------------------------------------------------------/")
+        print()
 
-        print("PROCESSED EVERYTHING")
-
-        for crap in airportList {
-            print("-----$$$$START$$$$----")
-            print(crap.city)
-            print("numero")
-            print(crap.flights.count)
-            print("voos")
-            print(crap.flights)
-            print("-----$$$$FIM$$$$----")
+        var c = 1
+        print("The DataBase has \(airportList.count) AirPorts, and here they are: ")
+        for airpoirt in airportList {
+            print("Airport number \(c): \(airpoirt.city) has \(airpoirt.flights.count) flights ")
+            print("----------------------------------------------------------------")
+            print(airpoirt.flights)
+            print("----------------------------------------------------------------")
+            print()
+            c+=1
         }
 
 

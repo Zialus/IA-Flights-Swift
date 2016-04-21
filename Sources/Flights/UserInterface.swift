@@ -3,11 +3,18 @@ import Foundation
 
 func printInstructions() {
 
-    print("---------------------------------------")
-    print(" ./ Flights [rotas.txt] <extra args>   ")
-    print("\t\t  debug:       DEBUG    ")
-    print("\t\t  fulldebug:   FULLDEBUG")
-    print("---------------------------------------")
+    print("  .-----------------------------------------------------------------.")
+    print(" /  .-.                                                         .-.  \\")
+    print("|  /   \\       ./ Flights [rotas.txt] <extra args>             /   \\  |")
+    print("| |\\_.  |                                                     |    /| |")
+    print("|\\|  | /|      debug:     Activates basic debug info          |\\  | |/|")
+    print("| `---' |      fulldebug: Activates the full debug info       | `---' |")
+    print("|       |                                                     |       |")
+    print("|       |-----------------------------------------------------|       |")
+    print("\\       |                                                     |       /")
+    print(" \\     /                                                       \\     /")
+    print("  `---'                                                         `---'")
+
 
 }
 
@@ -60,12 +67,26 @@ func proccessCmdLineArgs() -> () {
 }
 
 func menu() -> (Int) {
-    print ("\nMenu:")
-    print ("(1) Search Direct Flights")
-    print ("(2) Search Routes")
-    print ("(3) Search Circuits")
-    print ("(9) Exit!")
-    print ("Choose your option:")
+
+
+    print("                                                               .---.")
+    print("                                                              /  .  \\")
+    print("                                                             |\\_/|   |")
+    print("                                                             |   |  /|")
+    print("  .----------------------------------------------------------------' |")
+    print(" /  .-.                                                              |")
+    print("|  /   \\               Menu:                                         |")
+    print("| |\\_.  |              (1) Search Direct Flights                     |")
+    print("|\\|  | /|              (2) Search Routes                             |")
+    print("| `---' |              (3) Search Circuits                           |")
+    print("|       |              (9) Exit!                                     |")
+    print("|       |                                                           /")
+    print("|       |----------------------------------------------------------'")
+    print("\\       |")
+    print(" \\     /")
+    print("  `---'")
+
+    print ("Choose your option: ",terminator:"")
 
 
     if let userInput = readLine(stripNewline: true) {
@@ -83,22 +104,53 @@ func searchDirectFlights() -> () {
     var origin: String? = nil
     var destination: String? = nil
 
-    while origin == nil {
+
+    originLoop: while origin == nil {
 
         print("\nInsert the departure city name:")
         if let userInput = readLine(stripNewline: true) {
-            origin = userInput
+
+            let airportOrigin = Airport(city: userInput)
+
+            if !airportList.contains(airportOrigin) {
+                print()
+                print("The city: \"\(userInput)\" does not have an airport!")
+                print()
+                sleep(1)
+                continue originLoop
+
+            } else {
+                origin = userInput
+            }
+
+
+
         } else {
             print("something weird happend...")
         }
 
     }
 
-    while destination == nil {
+    destinationLoop: while destination == nil {
 
         print("Insert the arrival city name:")
         if let userInput = readLine(stripNewline: true) {
-            destination = userInput
+
+            let airportDestination = Airport(city: userInput)
+
+            if !airportList.contains(airportDestination) {
+                print()
+                print("The city: \"\(userInput)\" does not have an airport!")
+                print()
+                sleep(1)
+                continue destinationLoop
+
+            } else {
+
+                destination = userInput
+            }
+
+
         } else {
             print("something weird happend...")
         }
@@ -180,10 +232,10 @@ func searchRoutes() {
 
     dayLoop: while day == nil {
 
-        
+
         print("Insert the day to look up:")
         if let userInput = readLine(stripNewline: true) {
-            
+
             if userInput != "mo" && userInput != "tu" && userInput != "we" && userInput != "th" && userInput != "fr" && userInput != "sa" && userInput != "su" {
                 print()
                 print("Incorrect day! Day: \"\(userInput)\" is not valid! \t Be more careful!")
@@ -193,17 +245,17 @@ func searchRoutes() {
             } else {
                 day = userInput
             }
-            
+
         } else {
             print("something weird happend...")
         }
-        
+
     }
-    
+
     let result = findRouteSameDay(origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0)
-    
+
     print(result)
-    
+
 }
 
 func searchCircuits() {
@@ -266,7 +318,7 @@ func searchCircuits() {
 
     dayLoop: while day == nil {
 
-        print("Insert the day to look up:")
+        print("Insert the day to start the journey:")
         if let userInput = readLine(stripNewline: true) {
 
             if userInput != "mo" && userInput != "tu" && userInput != "we" && userInput != "th" && userInput != "fr" && userInput != "sa" && userInput != "su" {
@@ -306,14 +358,14 @@ func searchCircuits() {
         if let userInput = readLine(stripNewline: true) {
 
             let airport = Airport(city: userInput)
-
+            
             if !airportList.contains(airport) {
                 print()
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
                 sleep(1)
                 continue citiesLoop
-
+                
             } else {
                 citiesToVisit.append(userInput)
             }
@@ -325,9 +377,15 @@ func searchCircuits() {
         
     }
     
-    let result = findCircuits( origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0, citiesToVisit: citiesToVisit)
     
-    print(result)
-
-
+    let allPossibleVisitOrders = permutations(citiesToVisit)
+    
+    for orderOfVisit in allPossibleVisitOrders{
+        print("Trying the following order of visit: \(orderOfVisit)")
+        let result = findCircuits( origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0, citiesToVisit: orderOfVisit)
+        print(result)
+        
+    }
+    
+    
 }

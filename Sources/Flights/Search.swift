@@ -61,17 +61,17 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
                     return route
                 }
             }
-            
+
         }
-        
+
     } else {
         print("The departure airport does not exist")
     }
-    
+
     let route = [String]()
-    
+
     return route
-    
+
 }
 
 func findCircuits(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int, citiesToVisit: [String]) -> ([String]) {
@@ -80,8 +80,14 @@ func findCircuits(origin origin: String, arrival: String, currentDay: String, cu
         let route = findRouteSameDay(origin: currentCity, arrival: arrival, currentDay: currentDay, currentCity: currentCity, currentTime: 0)
         return route
     }
-
+    
+    
+    
+    
     let route = [String]()
     return route
-
+    
+    
+    
+    
 }

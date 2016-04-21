@@ -6,6 +6,7 @@ func == (lhs: Airport, rhs: Airport) -> Bool {
     return lhs.city == rhs.city
 }
 
+
 // Store debug information that will be given by cmdLine Args
 var DEBUG = false
 var FULLDEBUG = false

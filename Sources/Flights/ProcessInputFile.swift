@@ -134,7 +134,7 @@ func processFile () {
         print("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|")
         print("\\----------------------------------------------------------------------/")
         print()
-
+        
         var c = 1
         print("The DataBase has \(airportList.count) AirPorts, and here they are: ")
         for airpoirt in airportList {
@@ -145,8 +145,8 @@ func processFile () {
             print()
             c+=1
         }
-
-
+        
+        
     }
-
+    
 }

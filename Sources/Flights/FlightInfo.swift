@@ -30,5 +30,5 @@ extension FlightInfo: CustomStringConvertible {
     var description: String {
         return "Code: \(code) | Destination: \(destination) | TimeLeaving: \(timeLeaving) | TimeArrival: \(timeArrival) | Days: \(days)"
     }
-
+    
 }

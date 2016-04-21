@@ -32,5 +32,5 @@ extension Airport: Hashable {
     var hashValue: Int {
         return self.city.hashValue
     }
-
+    
 }

@@ -1,4 +1,3 @@
-
 import Foundation
 
 func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
@@ -80,14 +79,14 @@ func findCircuits(origin origin: String, arrival: String, currentDay: String, cu
         let route = findRouteSameDay(origin: currentCity, arrival: arrival, currentDay: currentDay, currentCity: currentCity, currentTime: 0)
         return route
     }
-    
-    
-    
-    
+
+
+
+
     let route = [String]()
     return route
-    
-    
-    
-    
+
+
+
+
 }

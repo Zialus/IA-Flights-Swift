@@ -1,11 +1,3 @@
-//
-//  FlightInfo.swift
-//  Flights
-//
-//  Created by Raul Ferreira on 4/11/16.
-//  Copyright © 2016 FCUP. All rights reserved.
-//
-
 import Foundation
 
 class FlightInfo {
@@ -30,5 +22,5 @@ extension FlightInfo: CustomStringConvertible {
     var description: String {
         return "Code: \(code) | Destination: \(destination) | TimeLeaving: \(timeLeaving) | TimeArrival: \(timeArrival) | Days: \(days)"
     }
-    
+
 }

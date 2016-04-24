@@ -1,20 +1,13 @@
-
 import Foundation
-
-// Makes class Airport Equatable
-func == (lhs: Airport, rhs: Airport) -> Bool {
-    return lhs.city == rhs.city
-}
-
 
 // Store debug information that will be given by cmdLine Args
 var DEBUG = false
 var FULLDEBUG = false
 
-// Will Store the location of the input file which cotains the timetables info
+// Will store the location of the input file which cotains the timetables info
 var filelocation: String = ""
 
-// Store the list of Airports
+// Store the list of Airports (without duplicates, obviously)
 var airportList = Set<Airport>()
 
 // Process the given cmdLine Args

@@ -305,8 +305,22 @@ func searchRoutes() -> () {
 
     let resultList = findRouteSameDay(origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0)
 
-    for result in resultList {
-        print(result)
+    if resultList.count == 0 {
+        print("There is no way to get from \(origin) to \(destination) on \(day)!")
+    } else {
+
+
+        print()
+        print("Here are the results of your search:")
+
+        print("+++++++++++++++++++++++++++++++++++++++++++++++")
+
+        for result in resultList {
+            print(result)
+        }
+
+        print("+++++++++++++++++++++++++++++++++++++++++++++++")
+        
     }
 
 }

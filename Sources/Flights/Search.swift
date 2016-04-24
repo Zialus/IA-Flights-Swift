@@ -50,9 +50,9 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
                 var route = [String]()
 
                 route.append(currentCity)
-                route.append("-->taking this flight-->")
+                route.append("-->Take the flight-->")
                 route.append("Code: \(flight.code), Time: \(minsToTime(flight.timeLeaving))/\(minsToTime(flight.timeArrival))")
-                route.append("-->arriving at-->")
+                route.append("-->You'll arrive at-->")
 
                 route += findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeArrival)
 

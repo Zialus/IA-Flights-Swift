@@ -32,6 +32,7 @@ while true {
         exit(0)
     default:
         print ("Invalid option!")
+        usleep(600000)
     }
 
 }

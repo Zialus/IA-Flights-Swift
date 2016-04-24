@@ -1,11 +1,35 @@
-
 import Foundation
 
-func printInstructions() {
+func listOfDaysPrettyPrinting(listOfDays: Set<String>) -> () {
 
+    for day in listOfDays {
+        switch day {
+        case "mo":
+            print("Monday")
+        case "tu":
+            print("Tuesday")
+        case "we":
+            print("Wednesday")
+        case "th":
+            print("Thursday")
+        case "fr":
+            print("Friday")
+        case "sa":
+            print("Saturday")
+        case "su":
+            print("Sunday")
+        default:
+            print("WTF!?")
+        }
+    }
+
+}
+
+func printInstructions() {
+    print(ANSI.Yellow)
     print("  .-----------------------------------------------------------------.")
     print(" /  .-.                                                         .-.  \\")
-    print("|  /   \\       ./ Flights [rotas.txt] <extra args>             /   \\  |")
+    print("|  /   \\      \(ANSI.Cyan)./Flights\(ANSI.Yellow) [file with routes] <extra args>        /   \\  |")
     print("| |\\_.  |                                                     |    /| |")
     print("|\\|  | /|      debug:     Activates basic debug info          |\\  | |/|")
     print("| `---' |      fulldebug: Activates the full debug info       | `---' |")
@@ -14,36 +38,60 @@ func printInstructions() {
     print("\\       |                                                     |       /")
     print(" \\     /                                                       \\     /")
     print("  `---'                                                         `---'")
-
-
+    print()
 }
 
 func welcomeMessage() {
-    print("Welcome to a silly little app that does stuff!\n")
+    print(ANSI.Blue)
+    print("    _____ _     _       _         _           _                 _ _ _")
+    print("   |_   _| |__ (_)___  (_)___    (_)_   _ ___| |_    __ _   ___(_) | |_   _")
+    print("     | | | '_ \\| / __| | / __|   | | | | / __| __|  / _` | / __| | | | | | |")
+    print("     | | | | | | \\__ \\ | \\__ \\   | | |_| \\__ \\ |_  | (_| | \\__ \\ | | | |_| |")
+    print("     |_| |_| |_|_|___/ |_|___/  _/ |\\__,_|___/\\__|  \\__,_| |___/_|_|_|\\__, |")
+    print("                               |__/                                   |___/")
+    print("        _____ _ _       _     _      ____ _               _")
+    print("       |  ___| (_) __ _| |__ | |_   / ___| |__   ___  ___| | _____ _ __")
+    print("       | |_  | | |/ _` | '_ \\| __| | |   | '_ \\ / _ \\/ __| |/ / _ \\ '__|")
+    print("       |  _| | | | (_| | | | | |_  | |___| | | |  __/ (__|   <  __/ |")
+    print("       |_|   |_|_|\\__, |_| |_|\\__|  \\____|_| |_|\\___|\\___|_|\\_\\___|_|")
+    print("                  |___/")
+    print("          _                  _   _           _         _")
+    print("         / \\   _ __  _ __   | |_| |__   __ _| |_    __| | ___   ___  ___")
+    print("        / _ \\ | '_ \\| '_ \\  | __| '_ \\ / _` | __|  / _` |/ _ \\ / _ \\/ __|")
+    print("       / ___ \\| |_) | |_) | | |_| | | | (_| | |_  | (_| | (_) |  __/\\__ \\")
+    print("      /_/   \\_\\ .__/| .__/   \\__|_| |_|\\__,_|\\__|  \\__,_|\\___/ \\___||___/")
+    print("              |_|   |_|")
+    print("                                               _          __  __")
+    print("                ___  ___  _ __ ___   ___   ___| |_ _   _ / _|/ _|")
+    print("               / __|/ _ \\| '_ ` _ \\ / _ \\ / __| __| | | | |_| |_")
+    print("               \\__ \\ (_) | | | | | |  __/ \\__ \\ |_| |_| |  _|  _|")
+    print("               |___/\\___/|_| |_| |_|\\___| |___/\\__|\\__,_|_| |_|")
+    print(ANSI.Reset)
 }
 
 func proccessCmdLineArgs() -> () {
 
-    if Process.arguments.count < 2  {
-
-        print("Too few arguments! try launching with the argument \"help\" ")
+    if Process.arguments.count < 2 {
+        print()
+        print("\(Colors.Red("Too few arguments!")) Try launching with the argument \"--help\" ")
+        print()
         exit(1)
-
-    } else if Process.arguments[1] == "help" {
+    } else if Process.arguments[1] == "--help" {
 
         printInstructions()
         exit(0)
 
     } else if Process.arguments.count == 2 {
 
-        print("All debug functionality is turned OFF")
+        print("All debug functionality is turned \(Colors.Red("OFF"))!")
+        print()
         filelocation = Process.arguments[1]
 
     } else if Process.arguments.count > 3 {
-
-        print("Too many arguments!")
+        print()
+        print("\(Colors.Red("Too many arguments!")) Try launching with the argument \"--help\" ")
+        print()
         exit(1)
-
     } else if Process.arguments.count == 3 {
 
         filelocation = Process.arguments[1]
@@ -51,14 +99,20 @@ func proccessCmdLineArgs() -> () {
 
         switch onlyArg {
         case "debug":
-            print("debug mode is ON!")
+            print("Debug Mode is \(Colors.Green("ON"))!")
+            print()
+
             DEBUG=true
         case "fulldebug":
-            print("full debug mode is ON!!!")
+            print("Full Debug mode is \(Colors.Green("ON"))!!!")
+            print()
+
             DEBUG=true
             FULLDEBUG=true
         default:
-            print("LOLWUT!? \"\(onlyArg)\": is an unrecognized argument")
+            print()
+            print("\(Colors.Red("What are you trying to do!?")) \n\"\(onlyArg)\" is an unrecognized argument")
+            print()
             exit(1)
         }
 
@@ -67,8 +121,7 @@ func proccessCmdLineArgs() -> () {
 }
 
 func menu() -> (Int) {
-
-
+    print()
     print("                                                               .---.")
     print("                                                              /  .  \\")
     print("                                                             |\\_/|   |")
@@ -85,8 +138,8 @@ func menu() -> (Int) {
     print("\\       |")
     print(" \\     /")
     print("  `---'")
-
-    print ("Choose your option: ",terminator:"")
+    print()
+    print("Choose your option: ", terminator:"")
 
 
     if let userInput = readLine(stripNewline: true) {
@@ -101,9 +154,8 @@ func menu() -> (Int) {
 
 func searchDirectFlights() -> () {
 
-    var origin: String? = nil
-    var destination: String? = nil
-
+    var origin: String! = nil
+    var destination: String! = nil
 
     originLoop: while origin == nil {
 
@@ -116,13 +168,12 @@ func searchDirectFlights() -> () {
                 print()
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue originLoop
 
             } else {
                 origin = userInput
             }
-
 
 
         } else {
@@ -142,7 +193,7 @@ func searchDirectFlights() -> () {
                 print()
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue destinationLoop
 
             } else {
@@ -157,22 +208,22 @@ func searchDirectFlights() -> () {
 
     }
 
+    print("\nChecking flights between \(origin) and \(destination)...\n")
 
-    print("\nChecking flights between \(origin!) and \(destination!)...\n")
-
-    let result = findDirectFlight(origin!, destination: destination!)
+    let result = findDirectFlight(origin, destination: destination)
 
     if result.count == 0 {
-        print("There are no flights available between \(origin!) and \(destination!) !")
+        print("There are no flights available between \(origin) and \(destination) !")
+    } else if result.count == 7 {
+            print("There are flights available all days of the week!")
     } else {
-        print("There are flights available in \(result.count) different days \nThe days are: \(result)")
+        print("There are flights available in \(result.count) different days, those days are:")
+        listOfDaysPrettyPrinting(result)
     }
-
-
 
 }
 
-func searchRoutes() {
+func searchRoutes() -> () {
 
     var origin: String! = nil
     var destination: String! = nil
@@ -189,7 +240,7 @@ func searchRoutes() {
                 print()
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue originLoop
 
             } else {
@@ -215,7 +266,7 @@ func searchRoutes() {
                 print()
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue destinationLoop
 
             } else {
@@ -240,7 +291,7 @@ func searchRoutes() {
                 print()
                 print("Incorrect day! Day: \"\(userInput)\" is not valid! \t Be more careful!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue dayLoop
             } else {
                 day = userInput
@@ -252,13 +303,15 @@ func searchRoutes() {
 
     }
 
-    let result = findRouteSameDay(origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0)
+    let resultList = findRouteSameDay(origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0)
 
-    print(result)
+    for result in resultList {
+        print(result)
+    }
 
 }
 
-func searchCircuits() {
+func searchCircuits() -> () {
 
     var origin: String! = nil
     var destination: String! = nil
@@ -275,7 +328,7 @@ func searchCircuits() {
                 print()
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue originLoop
 
             } else {
@@ -301,7 +354,7 @@ func searchCircuits() {
                 print()
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue destinationLoop
 
             } else {
@@ -325,7 +378,7 @@ func searchCircuits() {
                 print()
                 print("Incorrect day! Day: \"\(userInput)\" is not valid! \t Be more careful!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue dayLoop
             } else {
                 day = userInput
@@ -358,34 +411,34 @@ func searchCircuits() {
         if let userInput = readLine(stripNewline: true) {
 
             let airport = Airport(city: userInput)
-            
+
             if !airportList.contains(airport) {
                 print()
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
-                sleep(1)
+                usleep(600000)
                 continue citiesLoop
-                
+
             } else {
                 citiesToVisit.append(userInput)
             }
-            
-            
+
+
         } else {
             print("something weird happend...")
         }
-        
+
     }
-    
-    
+
+
     let allPossibleVisitOrders = permutations(citiesToVisit)
-    
-    for orderOfVisit in allPossibleVisitOrders{
+
+    for orderOfVisit in allPossibleVisitOrders {
         print("Trying the following order of visit: \(orderOfVisit)")
         let result = findCircuits( origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0, citiesToVisit: orderOfVisit)
         print(result)
-        
+
     }
-    
-    
+
+
 }

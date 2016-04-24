@@ -1,4 +1,3 @@
-
 import Foundation
 
 func timeToMins(timeString: String) -> (Int) {
@@ -23,22 +22,22 @@ func minsToTime(timeInt: Int) -> (String) {
 
 }
 
-func printdebug(string: String) -> () {
+func printdebug(string: Any) -> () {
 
-    if DEBUG == true{
+    if DEBUG == true {
         print(string)
     }
 
 }
 
-func printfulldebug(string: String) -> () {
+func printfulldebug(string: Any) -> () {
 
-    if FULLDEBUG == true{
+    if FULLDEBUG == true {
         print(string)
     }
 }
 
-func nextDay(day: String) -> (String){
+func nextDay(day: String) -> (String) {
 
     let nextday: String
 
@@ -65,21 +64,29 @@ func nextDay(day: String) -> (String){
 
 }
 
-func between<T>(x: T, _ ys: [T]) -> [[T]] {
-    guard let (head, tail) = ys.decompose() else { return [[x]] }
-    return [[x] + ys] + between(x, tail).map { [head] + $0 }
-}
 
 
-func permutations<T>(xs: [T]) -> [[T]] {
-    guard let (head, tail) = xs.decompose() else { return [[]] }
-    return permutations(tail).flatMap { between(head, $0) }
-}
 
+// Code that allows for Array permutations
 
 extension Array {
     func decompose() -> (Generator.Element, [Generator.Element])? {
         guard let x = first else { return nil }
         return (x, Array(self[1..<count]))
     }
+}
+
+func between<T>(x: T, _ ys: [T]) -> [[T]] {
+    guard let (head, tail) = ys.decompose() else { return [[x]] }
+    return [[x] + ys] + between(x, tail).map { [head] + $0 }
+}
+
+func permutations<T>(xs: [T]) -> [[T]] {
+    guard let (head, tail) = xs.decompose() else { return [[]] }
+    return permutations(tail).flatMap { between(head, $0) }
+}
+
+// Makes class Airport Equatable
+func == (lhs: Airport, rhs: Airport) -> Bool {
+    return lhs.city == rhs.city
 }

@@ -1,26 +1,35 @@
-
 import Foundation
 
 func processFile () {
 
+    print("Trying to open the file: \(filelocation) ... ",terminator:"")
     let fileContent = try? NSString(contentsOfFile: filelocation, encoding: NSUTF8StringEncoding)
 
-    //print(fileContent)
-
     if fileContent == nil {
-        print("Something went wrong when trying to open the file: \(filelocation)")
+        print("\(Colors.Red("Something went wrong while trying to open that file!"))")
         exit(1)
     } else {
+
+        print("\(Colors.Green("File opened successfuly!"))")
+
+        printfulldebug("\n\(ANSI.Cyan)######BEGINNING OF FILE CONTENT######\(ANSI.Reset)")
+        printfulldebug(fileContent!)
+        printfulldebug("\(ANSI.Cyan)######END OF FILE CONTENT######\(ANSI.Reset)\n")
 
         let delimiter = "."
         let linesList = fileContent!.componentsSeparatedByString(delimiter)
 
+        // Each line of the linesList has a source and destination airport and flight info
         for line in linesList {
 
-            printdebug("###########  Begining of line  ########")
+            printfulldebug("\(ANSI.Cyan)~~~~~~~~~~~~~~~~BEGINNING OF LINE~~~~~~~~~~~~~~~~\(ANSI.Reset)")
 
-            //print(line)
+            printfulldebug("\(ANSI.Yellow)$$$$$$--FULL LINE--$$$$$$$\(ANSI.Reset)")
+            printfulldebug(line)
+            printfulldebug("\(ANSI.Yellow)$$$$$$--END OF IT--$$$$$$$\(ANSI.Reset)")
 
+
+            // CLEAN THE STRING
             let newline1 = line.stringByReplacingOccurrencesOfString("timetable(", withString: "")
             let newline2 = newline1.stringByReplacingOccurrencesOfString("\n", withString: "")
             let newline3 = newline2.stringByReplacingOccurrencesOfString("\t", withString: "")
@@ -29,15 +38,14 @@ func processFile () {
 
             if let comma_range = newline4.rangeOfString(","),
                 let left_bracket = newline4.rangeOfString("[") {
+
                 let flightSource = newline4[newline4.startIndex..<comma_range.startIndex]
                 let secondPart = newline4[comma_range.startIndex..<left_bracket.startIndex]
                 let thirdPart = newline4[left_bracket.startIndex..<newline4.endIndex]
 
-                //-------------At this point i know the source airport-----------⁄
-                printdebug("Source:")
-                printdebug(flightSource)
-                let airport_tmp = Airport(city: flightSource)
+                printfulldebug("Source: |\(flightSource)|")
 
+                let airport_tmp = Airport(city: flightSource)
 
                 if !airportList.contains(airport_tmp) {
                     airportList.insert(airport_tmp)
@@ -45,24 +53,23 @@ func processFile () {
 
 
                 let flightDestination = secondPart[secondPart.startIndex.advancedBy(1)..<secondPart.endIndex.advancedBy(-1)]
-                printdebug("Destination:")
-                printdebug(flightDestination)
 
-                let thirdPartFinal = thirdPart[ thirdPart.startIndex.advancedBy(1)..<thirdPart.endIndex.advancedBy(-2)   ]
+                printfulldebug("Destination: |\(flightDestination)|")
+
+                let thirdPartv2 = thirdPart[thirdPart.startIndex.advancedBy(1)..<thirdPart.endIndex.advancedBy(-2)]
 
 
-                let evenmorefinalthirdpart = thirdPartFinal.stringByReplacingOccurrencesOfString("],",withString: "];")
-                let moreevenmorefinalthirdpart = evenmorefinalthirdpart.stringByReplacingOccurrencesOfString("alldays,",withString: "alldays;")
+                let thirdPartv3 = thirdPartv2.stringByReplacingOccurrencesOfString("],",withString: "];")
+                let thirdPartFinal = thirdPartv3.stringByReplacingOccurrencesOfString("alldays,",withString: "alldays;")
 
-                printdebug("Third:")
-                printdebug(moreevenmorefinalthirdpart)
+                printfulldebug("Third: |\(thirdPartFinal)|")
 
                 let delimiter = ";"
-                let listOfInfos = moreevenmorefinalthirdpart.componentsSeparatedByString(delimiter)
+                let listOfInfos = thirdPartFinal.componentsSeparatedByString(delimiter)
 
                 for wholeInfo in listOfInfos {
 
-                    printdebug("-----: ola :-----")
+                    printfulldebug("\(ANSI.Magenta)--------:START:-------\(ANSI.Reset)")
 
                     let delimiter = "/"
                     let infos = wholeInfo.componentsSeparatedByString(delimiter)
@@ -113,39 +120,36 @@ func processFile () {
                     airportList[indexAirport!].flights.append(flight)
 
                     for info in infos {
-                        printdebug("\(info)")
+                        printfulldebug("\(info)")
 
                     }
 
-                    printdebug("-----: adeus: -----")
+                    printfulldebug("\(ANSI.Magenta)--------:OVER:--------\(ANSI.Reset)")
 
 
                 }
 
             }
 
-            printdebug("###########  End of line  #############")
-
+            printfulldebug("\(ANSI.Cyan)~~~~~~~~~~~~~~~~END OF LINE~~~~~~~~~~~~~~~~~~~~~~\(ANSI.Reset)")
         }
 
-        print()
-        print("/----------------------------------------------------------------------\\")
-        print("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|")
-        print("\\----------------------------------------------------------------------/")
-        print()
-        
-        var c = 1
-        print("The DataBase has \(airportList.count) AirPorts, and here they are: ")
-        for airpoirt in airportList {
-            print("Airport number \(c): \(airpoirt.city) has \(airpoirt.flights.count) flights ")
-            print("----------------------------------------------------------------")
-            print(airpoirt.flights)
-            print("----------------------------------------------------------------")
-            print()
-            c+=1
+        printdebug(Colors.Green("/----------------------------------------------------------------------\\"))
+        printdebug(Colors.Green("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|"))
+        printdebug(Colors.Green("\\----------------------------------------------------------------------/"))
+
+        printdebug("The DataBase has \(airportList.count) Airports, and here they are: ")
+        printdebug("")
+
+        for (index,airpoirt) in airportList.enumerate() {
+            printdebug("Airport number \(index+1): \(airpoirt.city) has \(airpoirt.flights.count) flights ")
+            printdebug("----------------------------------------------------------------")
+            printdebug(airpoirt.flights)
+            printdebug("----------------------------------------------------------------")
+            printdebug("")
         }
-        
-        
+
+
     }
-    
+
 }

@@ -409,7 +409,7 @@ func searchCircuits() -> () {
 
     while numberOfCities == nil {
 
-        print("\nInsert the number of cities to visited in between:")
+        print("Insert the number of cities to be visited in-between:")
         if let userInput = readLine(stripNewline: true) {
             numberOfCities = Int(userInput)
             if numberOfCities == nil {print("That's not a number...")}
@@ -421,7 +421,7 @@ func searchCircuits() -> () {
 
     citiesLoop: while citiesToVisit.count != numberOfCities {
 
-        print("\nInsert the name of a city to visit:")
+        print("Insert the name of a city to visit:")
         if let userInput = readLine(stripNewline: true) {
 
             let airport = Airport(city: userInput)
@@ -444,8 +444,9 @@ func searchCircuits() -> () {
 
     }
 
-
     let allPossibleVisitOrders = permutations(citiesToVisit)
+
+    print()
 
     for orderOfVisit in allPossibleVisitOrders {
         print("Trying the following order of visit: \(orderOfVisit)")

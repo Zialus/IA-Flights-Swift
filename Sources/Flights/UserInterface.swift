@@ -446,13 +446,22 @@ func searchCircuits() -> () {
 
     let allPossibleVisitOrders = permutations(citiesToVisit)
 
-    print()
 
+    var foundSolution = false
     for orderOfVisit in allPossibleVisitOrders {
         print("Trying the following order of visit: \(orderOfVisit)")
-        let result = findCircuits( origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0, citiesToVisit: orderOfVisit)
-        print(result)
+        let result = findCircuits( origin: origin, arrival: destination, currentDay: day, currentCity: origin, citiesToVisit: orderOfVisit)
 
+        if !result.isEmpty{
+            print("Found a solution:")
+            foundSolution = true
+            print(result)
+        }
+
+    }
+
+    if foundSolution == false{
+        print("No solution was found")
     }
 
 

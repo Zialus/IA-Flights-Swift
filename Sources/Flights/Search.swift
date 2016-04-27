@@ -73,20 +73,39 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 
 }
 
-func findCircuits(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int, citiesToVisit: [String]) -> ([String]) {
 
-    if citiesToVisit.isEmpty {
-        let route = findRouteSameDay(origin: currentCity, arrival: arrival, currentDay: currentDay, currentCity: currentCity, currentTime: 0)
-        return route
+func findCircuits(origin origin: String, arrival: String, currentDay: String, currentCity: String, citiesToVisit: [String]) -> ([String]) {
+
+    var citiesNotVisited = citiesToVisit
+    if citiesNotVisited.isEmpty {
+        var route = [String]()
+
+        route.append(currentCity)
+        route.append("-- \(currentDay) -->")
+        route.append(arrival)
+        let destDays = findDirectFlight(currentCity, destination: arrival)
+        if (destDays.contains(currentDay)) {
+            return route
+        }
+        else {
+            route = [String]()
+            return route
+        }
+    } else {
+        var route = [String]()
+
+        let dest = citiesNotVisited.removeAtIndex(0)
+        let destDays = findDirectFlight(currentCity, destination: dest)
+        if destDays.contains(currentDay) {
+            let next_day = nextDay(currentDay)
+            route.append(currentCity)
+            route.append("-- \(currentDay) -->")
+            route += findCircuits(origin: origin, arrival: arrival, currentDay: next_day, currentCity: dest,citiesToVisit: citiesNotVisited)
+            if (route.last == arrival){
+                return route
+            }
+        }
     }
-
-
-
-
     let route = [String]()
     return route
-
-
-
-
 }

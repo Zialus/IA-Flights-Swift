@@ -210,12 +210,14 @@ func searchDirectFlights() -> () {
 
     print("\nChecking flights between \(origin) and \(destination)...\n")
 
-    let result = findDirectFlight(origin, destination: destination)
+
+    let result = findDirectFlight(origin: origin, destination: destination)
+
 
     if result.count == 0 {
         print("There are no flights available between \(origin) and \(destination) !")
     } else if result.count == 7 {
-            print("There are flights available all days of the week!")
+        print("There are flights available all days of the week!")
     } else {
         print("There are flights available in \(result.count) different days, those days are:")
         listOfDaysPrettyPrinting(result)
@@ -246,7 +248,6 @@ func searchRoutes() -> () {
             } else {
                 origin = userInput
             }
-
 
 
         } else {
@@ -283,7 +284,6 @@ func searchRoutes() -> () {
 
     dayLoop: while day == nil {
 
-
         print("Insert the day to look up:")
         if let userInput = readLine(stripNewline: true) {
 
@@ -303,24 +303,29 @@ func searchRoutes() -> () {
 
     }
 
+    print("\n\nTrying to find a route between \(origin) and \(destination)...")
+
+
     let resultList = findRouteSameDay(origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0)
+
 
     if resultList.count == 0 {
         print("There is no way to get from \(origin) to \(destination) on \(day)!")
     } else {
-
-
         print()
         print("Here are the results of your search:")
+        print()
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-        print("+++++++++++++++++++++++++++++++++++++++++++++++")
-
-        for result in resultList {
-            print(result)
+        for (index,result) in resultList.enumerate() {
+            if (index == 0) { print ("| Starting the route from -----> ",terminator:"")}
+            else if (index%2 != 0) { print("| Take the Flight --------> ",terminator:"") }
+            else if (index%2 == 0) { print("| Arriving at -------> ",terminator:"") }
+            print(result,terminator:"\t\t|\n")
         }
 
-        print("+++++++++++++++++++++++++++++++++++++++++++++++")
-        
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
     }
 
 }
@@ -348,8 +353,6 @@ func searchCircuits() -> () {
             } else {
                 origin = userInput
             }
-
-
 
         } else {
             print("something weird happend...")
@@ -421,7 +424,7 @@ func searchCircuits() -> () {
 
     citiesLoop: while citiesToVisit.count != numberOfCities {
 
-        print("Insert the name of a city to visit:")
+        print("Insert the name of city number \(citiesToVisit.count+1):")
         if let userInput = readLine(stripNewline: true) {
 
             let airport = Airport(city: userInput)
@@ -432,37 +435,56 @@ func searchCircuits() -> () {
                 print()
                 usleep(600000)
                 continue citiesLoop
-
+                
             } else {
                 citiesToVisit.append(userInput)
             }
-
-
+            
+            
         } else {
             print("something weird happend...")
         }
-
+        
     }
-
+    
     let allPossibleVisitOrders = permutations(citiesToVisit)
-
-
+    
+    
     var foundSolution = false
     for orderOfVisit in allPossibleVisitOrders {
-        print("Trying the following order of visit: \(orderOfVisit)")
+
+        printfulldebug("\nTrying the following order of visit: \(orderOfVisit)... ")
+
         let result = findCircuits( origin: origin, arrival: destination, currentDay: day, currentCity: origin, citiesToVisit: orderOfVisit)
 
         if !result.isEmpty{
-            print("Found a solution:")
+            print("\nFound a solution:")
             foundSolution = true
-            print(result)
+
+            print("Here are the results of your search:")
+            print()
+            print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+
+            for (index,element) in result.enumerate(){
+
+                    if (index == 0) { print ("| Starting the route from -----> ",terminator:"")}
+                    else if (index%2 != 0) { print("| Taking the flight on the day --------> ",terminator:"") }
+                    else if (index%2 == 0) { print("| Arriving at -------> ",terminator:"") }
+                    print(element,terminator:"\t\t|\n")
+
+
+            }
+
+            print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+            
         }
-
+        
     }
-
+    
     if foundSolution == false{
         print("No solution was found")
     }
-
-
+    
+    
 }

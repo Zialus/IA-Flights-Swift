@@ -1,6 +1,6 @@
 import Foundation
 
-func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
+func findDirectFlight(origin origin: String, destination: String) -> (Set<String>) {
 
     var daysAvailableList = Set<String>()
 
@@ -50,9 +50,7 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
                 var route = [String]()
 
                 route.append(currentCity)
-                route.append("-->Take the flight-->")
-                route.append("Code: \(flight.code), Time: \(minsToTime(flight.timeLeaving))/\(minsToTime(flight.timeArrival))")
-                route.append("-->You'll arrive at-->")
+                route.append("[Code: \(flight.code), Time: \(minsToTime(flight.timeLeaving))/\(minsToTime(flight.timeArrival))]")
 
                 route += findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeArrival)
 
@@ -81,9 +79,9 @@ func findCircuits(origin origin: String, arrival: String, currentDay: String, cu
         var route = [String]()
 
         route.append(currentCity)
-        route.append("-- \(currentDay) -->")
+        route.append("[Day: \(currentDay)]")
         route.append(arrival)
-        let destDays = findDirectFlight(currentCity, destination: arrival)
+        let destDays = findDirectFlight(origin: currentCity, destination: arrival)
         if (destDays.contains(currentDay)) {
             return route
         }
@@ -95,11 +93,11 @@ func findCircuits(origin origin: String, arrival: String, currentDay: String, cu
         var route = [String]()
 
         let dest = citiesNotVisited.removeAtIndex(0)
-        let destDays = findDirectFlight(currentCity, destination: dest)
+        let destDays = findDirectFlight(origin: currentCity, destination: dest)
         if destDays.contains(currentDay) {
             let next_day = nextDay(currentDay)
             route.append(currentCity)
-            route.append("-- \(currentDay) -->")
+            route.append("[Day: \(currentDay)]")
             route += findCircuits(origin: origin, arrival: arrival, currentDay: next_day, currentCity: dest,citiesToVisit: citiesNotVisited)
             if (route.last == arrival){
                 return route

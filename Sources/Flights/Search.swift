@@ -29,12 +29,15 @@ func findDirectFlight(origin origin: String, destination: String) -> (Set<String
 
 }
 
-func findRouteSameDay(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> ([String]) {
+func findRouteSameDay(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> () {
+
 
     if currentCity==arrival {
-        var route = [String]()
-        route.append(currentCity)
-        return route
+        printfulldebug("----------Found an answer--------START----------")
+        printfulldebug(stack)
+        printfulldebug("----------Found an answer--------END------------")
+        stackList.append(stack)
+        return
     }
 
     let airportCity = Airport(city: currentCity)
@@ -45,18 +48,19 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 
         for flight in airportList[indexAirport!].flights where flight.days[currentDay] == true {
 
+            printfulldebug("Current state of the Stack \(stack)")
+
+            printdebug("\n Trying to flight from \(currentCity) to \(flight.destination) on the flight \(flight.destination)\n")
+
             if flight.timeLeaving >= currentTime + 40 {
 
-                var route = [String]()
+                printdebug("Was able to catch that flight on time \(currentCity) para \(flight.destination)\n")
 
-                route.append(currentCity)
-                route.append("[Code: \(flight.code), Time: \(minsToTime(flight.timeLeaving))/\(minsToTime(flight.timeArrival))]")
+                stack.push("\(currentCity) ----> [Code: \(flight.code), Time: \(minsToTime(flight.timeLeaving))/\(minsToTime(flight.timeArrival))] ----> \(flight.destination)")
 
-                route += findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeArrival)
+                findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeArrival)
 
-                if route.last == arrival {
-                    return route
-                }
+                stack.pop()
             }
 
         }
@@ -65,10 +69,7 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
         print("The departure airport does not exist")
     }
 
-    let route = [String]()
-
-    return route
-
+    return
 }
 
 

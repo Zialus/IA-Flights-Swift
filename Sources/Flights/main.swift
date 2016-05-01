@@ -1,5 +1,9 @@
 import Foundation
 
+// TODO: I really need to find a better way to do this, making this global instead of local is super hacky
+var stack = Stack<String>()
+var stackList = [Stack<String>]()
+
 // Store debug information that will be given by cmdLine Args
 var DEBUG = false
 var FULLDEBUG = false

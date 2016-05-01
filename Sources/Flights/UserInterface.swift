@@ -1,30 +1,5 @@
 import Foundation
 
-func listOfDaysPrettyPrinting(listOfDays: Set<String>) -> () {
-
-    for day in listOfDays {
-        switch day {
-        case "mo":
-            print("Monday")
-        case "tu":
-            print("Tuesday")
-        case "we":
-            print("Wednesday")
-        case "th":
-            print("Thursday")
-        case "fr":
-            print("Friday")
-        case "sa":
-            print("Saturday")
-        case "su":
-            print("Sunday")
-        default:
-            print("WTF!?")
-        }
-    }
-
-}
-
 func printInstructions() {
     print(ANSI.Yellow)
     print("  .-----------------------------------------------------------------.")
@@ -305,29 +280,34 @@ func searchRoutes() -> () {
 
     print("\n\nTrying to find a route between \(origin) and \(destination)...")
 
+    // TODO: I really need to find a better way to do this, i should just be creating a new local variable
+    stack = Stack<String>()
+    stackList = [Stack<String>]()
 
-    let resultList = findRouteSameDay(origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0)
+    findRouteSameDay(origin: origin, arrival: destination, currentDay: day, currentCity: origin, currentTime: 0)
 
-
-    if resultList.count == 0 {
+    if stackList.count == 0 {
         print("There is no way to get from \(origin) to \(destination) on \(day)!")
-    } else {
+    } else  {
         print()
-        print("Here are the results of your search:")
-        print()
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
-        for (index,result) in resultList.enumerate() {
-            if (index == 0) { print ("| Starting the route from -----> ",terminator:"")}
-            else if (index%2 != 0) { print("| Take the Flight --------> ",terminator:"") }
-            else if (index%2 == 0) { print("| Arriving at -------> ",terminator:"") }
-            print(result,terminator:"\t\t|\n")
+        if stackList.count == 1 {
+            print("There is only one way to get from \(origin) to \(destination) on \(day).")
+            print("\nHere it is:")
+        } else {
+            print("There are \(stackList.count) different wats to get from \(origin) to \(destination) on \(dayPrettyPrinting(day)).")
+            print("\nHere they are:")
         }
 
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
+        for stack in stackList {
+            print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+            for result in stack.reverse() {
+                print(result)
+            }
+            print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        }
+        
     }
-
+    
 }
 
 func searchCircuits() -> () {
@@ -435,21 +415,21 @@ func searchCircuits() -> () {
                 print()
                 usleep(600000)
                 continue citiesLoop
-                
+
             } else {
                 citiesToVisit.append(userInput)
             }
-            
-            
+
+
         } else {
             print("something weird happend...")
         }
-        
+
     }
-    
+
     let allPossibleVisitOrders = permutations(citiesToVisit)
-    
-    
+
+
     var foundSolution = false
     for orderOfVisit in allPossibleVisitOrders {
 
@@ -460,22 +440,22 @@ func searchCircuits() -> () {
         if !result.isEmpty{
             print("\nFound a solution:")
             foundSolution = true
-
+            
             print("Here are the results of your search:")
             print()
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
-
+            
+            
             for (index,element) in result.enumerate(){
-
-                    if (index == 0) { print ("| Starting the route from -----> ",terminator:"")}
-                    else if (index%2 != 0) { print("| Taking the flight on the day --------> ",terminator:"") }
-                    else if (index%2 == 0) { print("| Arriving at -------> ",terminator:"") }
-                    print(element,terminator:"\t\t|\n")
-
-
+                
+                if (index == 0) { print ("| Starting the route from -----> ",terminator:"")}
+                else if (index%2 != 0) { print("| Taking the flight on the day --------> ",terminator:"") }
+                else if (index%2 == 0) { print("| Arriving at -------> ",terminator:"") }
+                print(element,terminator:"\t\t\t\t\t\t|\n")
+                
+                
             }
-
+            
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
             
         }

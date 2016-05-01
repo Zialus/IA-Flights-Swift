@@ -64,6 +64,53 @@ func nextDay(day: String) -> (String) {
 
 }
 
+func listOfDaysPrettyPrinting(listOfDays: Set<String>) -> () {
+
+    for day in listOfDays {
+        switch day {
+        case "mo":
+            print("Monday")
+        case "tu":
+            print("Tuesday")
+        case "we":
+            print("Wednesday")
+        case "th":
+            print("Thursday")
+        case "fr":
+            print("Friday")
+        case "sa":
+            print("Saturday")
+        case "su":
+            print("Sunday")
+        default:
+            print("WTF!?")
+        }
+    }
+
+}
+
+func dayPrettyPrinting(day: String) -> (String) {
+
+        switch day {
+        case "mo":
+            return "Monday"
+        case "tu":
+            return "Tuesday"
+        case "we":
+            return "Wednesday"
+        case "th":
+            return "Thursday"
+        case "fr":
+            return "Friday"
+        case "sa":
+            return "Saturday"
+        case "su":
+            return "Sunday"
+        default:
+            return "WTF!?"
+        }
+
+}
 
 
 
@@ -85,6 +132,8 @@ func permutations<T>(xs: [T]) -> [[T]] {
     guard let (head, tail) = xs.decompose() else { return [[]] }
     return permutations(tail).flatMap { between(head, $0) }
 }
+
+
 
 // Makes class Airport Equatable
 func == (lhs: Airport, rhs: Airport) -> Bool {

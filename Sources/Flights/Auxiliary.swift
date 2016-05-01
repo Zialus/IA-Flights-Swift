@@ -23,15 +23,12 @@ func minsToTime(timeInt: Int) -> (String) {
 }
 
 func printdebug(string: Any) -> () {
-
     if DEBUG == true {
         print(string)
     }
-
 }
 
 func printfulldebug(string: Any) -> () {
-
     if FULLDEBUG == true {
         print(string)
     }
@@ -57,7 +54,7 @@ func nextDay(day: String) -> (String) {
     case "su":
         nextday = "mo"
     default:
-        nextday = "YOU SHOULDN'T DO THAT"
+        nextday = "WTF!?"
     }
 
     return nextday
@@ -91,31 +88,29 @@ func listOfDaysPrettyPrinting(listOfDays: Set<String>) -> () {
 
 func dayPrettyPrinting(day: String) -> (String) {
 
-        switch day {
-        case "mo":
-            return "Monday"
-        case "tu":
-            return "Tuesday"
-        case "we":
-            return "Wednesday"
-        case "th":
-            return "Thursday"
-        case "fr":
-            return "Friday"
-        case "sa":
-            return "Saturday"
-        case "su":
-            return "Sunday"
-        default:
-            return "WTF!?"
-        }
+    switch day {
+    case "mo":
+        return "Monday"
+    case "tu":
+        return "Tuesday"
+    case "we":
+        return "Wednesday"
+    case "th":
+        return "Thursday"
+    case "fr":
+        return "Friday"
+    case "sa":
+        return "Saturday"
+    case "su":
+        return "Sunday"
+    default:
+        return "WTF!?"
+    }
 
 }
 
 
-
-// Code that allows for Array permutations
-
+//--------------Code that allows for Array permutations------------//
 extension Array {
     func decompose() -> (Generator.Element, [Generator.Element])? {
         guard let x = first else { return nil }
@@ -132,28 +127,4 @@ func permutations<T>(xs: [T]) -> [[T]] {
     guard let (head, tail) = xs.decompose() else { return [[]] }
     return permutations(tail).flatMap { between(head, $0) }
 }
-
-
-
-// Makes class Airport Equatable
-func == (lhs: Airport, rhs: Airport) -> Bool {
-    return lhs.city == rhs.city
-}
-
-
-extension String {
-    public func leftpad (length: Int, character: Character = " ") -> String {
-
-        var outString: String = self
-
-        let extraLength = length - outString.characters.count
-
-        var i = 0
-        while (i < extraLength) {
-            outString.insert(character, atIndex: outString.startIndex)
-            i += 1
-        }
-
-        return outString
-    }
-}
+//-----------------------------------------------------------------//

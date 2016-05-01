@@ -26,3 +26,8 @@ extension Airport: Hashable {
     }
 
 }
+
+// Makes the class Airport Equatable
+func == (lhs: Airport, rhs: Airport) -> Bool {
+    return lhs.city == rhs.city
+}

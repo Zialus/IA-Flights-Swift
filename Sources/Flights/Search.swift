@@ -31,7 +31,6 @@ func findDirectFlight(origin origin: String, destination: String) -> (Set<String
 
 func findRouteSameDay(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> () {
 
-
     if currentCity==arrival {
         printfulldebug("----------Found an answer--------START----------")
         printfulldebug(stack)
@@ -50,11 +49,11 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 
             printfulldebug("Current state of the Stack \(stack)")
 
-            printdebug("\n Trying to flight from \(currentCity) to \(flight.destination) on the flight \(flight.destination)\n")
+            printdebug("\n Trying to fly from \(currentCity) to \(flight.destination) on the flight \(flight.destination)\n")
 
             if flight.timeLeaving >= currentTime + 40 {
 
-                printdebug("Was able to catch that flight on time \(currentCity) para \(flight.destination)\n")
+                printdebug("Was able to catch the flight on time. From \(currentCity) to \(flight.destination)\n")
 
                 stack.push("\(currentCity) ----> [Code: \(flight.code), Time: \(minsToTime(flight.timeLeaving))/\(minsToTime(flight.timeArrival))] ----> \(flight.destination)")
 
@@ -76,35 +75,43 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 func findCircuits(origin origin: String, arrival: String, currentDay: String, currentCity: String, citiesToVisit: [String]) -> ([String]) {
 
     var citiesNotVisited = citiesToVisit
-    if citiesNotVisited.isEmpty {
-        var route = [String]()
 
-        route.append(currentCity)
-        route.append("[Day: \(currentDay)]")
-        route.append(arrival)
+    if citiesNotVisited.isEmpty {
+
         let destDays = findDirectFlight(origin: currentCity, destination: arrival)
+
         if (destDays.contains(currentDay)) {
+            var route = [String]()
+            route.append(currentCity)
+            route.append(currentDay)
+            route.append(arrival)
+            return route
+        } else {
+            let route = [String]()
             return route
         }
-        else {
-            route = [String]()
-            return route
-        }
+
     } else {
-        var route = [String]()
 
         let dest = citiesNotVisited.removeAtIndex(0)
         let destDays = findDirectFlight(origin: currentCity, destination: dest)
+
         if destDays.contains(currentDay) {
-            let next_day = nextDay(currentDay)
+            var route = [String]()
             route.append(currentCity)
-            route.append("[Day: \(currentDay)]")
+            route.append(currentDay)
+
+            let next_day = nextDay(currentDay)
             route += findCircuits(origin: origin, arrival: arrival, currentDay: next_day, currentCity: dest,citiesToVisit: citiesNotVisited)
+
             if (route.last == arrival){
                 return route
             }
         }
+
     }
+
     let route = [String]()
     return route
+
 }

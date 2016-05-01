@@ -1,6 +1,6 @@
 import Foundation
 
-// TODO: I really need to find a better way to do this, making this global instead of local is super hacky
+// I really need to find a better way to do this, making this global instead of local is super hacky
 var stack = Stack<String>()
 var stackList = [Stack<String>]()
 
@@ -11,7 +11,7 @@ var FULLDEBUG = false
 // Will store the location of the input file which cotains the timetables info
 var filelocation: String = ""
 
-// Store the list of Airports (without duplicates, obviously)
+// Will store the list of Airports (without duplicates, obviously)
 var airportList = Set<Airport>()
 
 // Process the given cmdLine Args
@@ -24,6 +24,7 @@ welcomeMessage()
 
 // Menu Loop
 while true {
+
     switch menu() {
     case 1:
         searchDirectFlights()

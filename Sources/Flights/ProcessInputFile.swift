@@ -134,11 +134,12 @@ func processFile () {
             printfulldebug("\(ANSI.Cyan)~~~~~~~~~~~~~~~~END OF LINE~~~~~~~~~~~~~~~~~~~~~~\(ANSI.Reset)")
         }
 
+        printdebug("")
         printdebug(Colors.Green("/----------------------------------------------------------------------\\"))
         printdebug(Colors.Green("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|"))
         printdebug(Colors.Green("\\----------------------------------------------------------------------/"))
 
-        printdebug("The DataBase has \(airportList.count) Airports, and here they are: ")
+        printdebug("The Database has \(airportList.count) Airports, and here they are: ")
         printdebug("")
 
         for (index,airpoirt) in airportList.enumerate() {

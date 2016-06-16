@@ -117,7 +117,7 @@ func menu() -> (Int) {
     print("Choose your option: ", terminator:"")
 
 
-    if let userInput = readLine(stripNewline: true) {
+    if let userInput = readLine(strippingNewline: true) {
         if let res = Int(userInput) {
             return res
         }
@@ -135,7 +135,7 @@ func searchDirectFlights() -> () {
     originLoop: while origin == nil {
 
         print("\nInsert the departure city name:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             let airportOrigin = Airport(city: userInput)
 
@@ -160,7 +160,7 @@ func searchDirectFlights() -> () {
     destinationLoop: while destination == nil {
 
         print("Insert the arrival city name:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             let airportDestination = Airport(city: userInput)
 
@@ -209,7 +209,7 @@ func searchRoutes() -> () {
     originLoop: while origin == nil {
 
         print("\nInsert the departure city name:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             let airportOrigin = Airport(city: userInput)
 
@@ -234,7 +234,7 @@ func searchRoutes() -> () {
     destinationLoop: while destination == nil {
 
         print("Insert the arrival city name:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             let airportDestination = Airport(city: userInput)
 
@@ -260,7 +260,7 @@ func searchRoutes() -> () {
     dayLoop: while day == nil {
 
         print("Insert the day to look up:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             if userInput != "mo" && userInput != "tu" && userInput != "we" && userInput != "th" && userInput != "fr" && userInput != "sa" && userInput != "su" {
                 print()
@@ -300,7 +300,7 @@ func searchRoutes() -> () {
 
         for stack in stackList {
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-            for result in stack.reverse() {
+            for result in stack.reversed() {
                 print(result)
             }
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -319,7 +319,7 @@ func searchCircuits() -> () {
     originLoop: while origin == nil {
 
         print("\nInsert the departure city name:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             let airportOrigin = Airport(city: userInput)
 
@@ -343,7 +343,7 @@ func searchCircuits() -> () {
     destinationLoop: while destination == nil {
 
         print("Insert the arrival city name:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             let airportDestination = Airport(city: userInput)
 
@@ -369,7 +369,7 @@ func searchCircuits() -> () {
     dayLoop: while day == nil {
 
         print("Insert the day to start the journey:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             if userInput != "mo" && userInput != "tu" && userInput != "we" && userInput != "th" && userInput != "fr" && userInput != "sa" && userInput != "su" {
                 print()
@@ -393,7 +393,7 @@ func searchCircuits() -> () {
     while numberOfCities == nil {
 
         print("Insert the number of cities to be visited in-between:")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
             numberOfCities = Int(userInput)
             if numberOfCities == nil {print("That's not a number...")}
         } else {
@@ -405,7 +405,7 @@ func searchCircuits() -> () {
     citiesLoop: while citiesToVisit.count != numberOfCities {
 
         print("Insert the name of city number \(citiesToVisit.count+1):")
-        if let userInput = readLine(stripNewline: true) {
+        if let userInput = readLine(strippingNewline: true) {
 
             let airport = Airport(city: userInput)
 
@@ -446,7 +446,7 @@ func searchCircuits() -> () {
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
             
             
-            for (index,element) in result.enumerate(){
+            for (index,element) in result.enumerated(){
                 
                 if (index == 0) { print ("| Starting the route from: \(element) ",terminator:"\n")}
                 else if (index%2 != 0) { print("| Catching a flight [ \(dayPrettyPrinting(element)) ]",terminator:"") }

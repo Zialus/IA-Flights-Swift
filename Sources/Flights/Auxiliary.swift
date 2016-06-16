@@ -1,9 +1,9 @@
 import Foundation
 
-func timeToMins(timeString: String) -> (Int) {
+func timeToMins(_ timeString: String) -> (Int) {
 
     let delimiter = ":"
-    let parts = timeString.componentsSeparatedByString(delimiter)
+    let parts = timeString.components(separatedBy: delimiter)
 
     let hours = Int(parts[0])!
     let mins = Int(parts[1])!
@@ -12,7 +12,7 @@ func timeToMins(timeString: String) -> (Int) {
 
 }
 
-func minsToTime(timeInt: Int) -> (String) {
+func minsToTime(_ timeInt: Int) -> (String) {
 
     let hours = timeInt / 60
     let mins = timeInt % 60
@@ -22,19 +22,19 @@ func minsToTime(timeInt: Int) -> (String) {
 
 }
 
-func printdebug(string: Any) -> () {
+func printdebug(_ string: Any) -> () {
     if DEBUG == true {
         print(string)
     }
 }
 
-func printfulldebug(string: Any) -> () {
+func printfulldebug(_ string: Any) -> () {
     if FULLDEBUG == true {
         print(string)
     }
 }
 
-func nextDay(day: String) -> (String) {
+func nextDay(_ day: String) -> (String) {
 
     let nextday: String
 
@@ -61,7 +61,7 @@ func nextDay(day: String) -> (String) {
 
 }
 
-func listOfDaysPrettyPrinting(listOfDays: Set<String>) -> () {
+func listOfDaysPrettyPrinting(_ listOfDays: Set<String>) -> () {
 
     for day in listOfDays {
         switch day {
@@ -86,7 +86,7 @@ func listOfDaysPrettyPrinting(listOfDays: Set<String>) -> () {
 
 }
 
-func dayPrettyPrinting(day: String) -> (String) {
+func dayPrettyPrinting(_ day: String) -> (String) {
 
     switch day {
     case "mo":
@@ -112,18 +112,18 @@ func dayPrettyPrinting(day: String) -> (String) {
 
 //--------------Code that allows for Array permutations------------//
 extension Array {
-    func decompose() -> (Generator.Element, [Generator.Element])? {
+    func decompose() -> (Iterator.Element, [Iterator.Element])? {
         guard let x = first else { return nil }
         return (x, Array(self[1..<count]))
     }
 }
 
-func between<T>(x: T, _ ys: [T]) -> [[T]] {
+func between<T>(_ x: T, _ ys: [T]) -> [[T]] {
     guard let (head, tail) = ys.decompose() else { return [[x]] }
     return [[x] + ys] + between(x, tail).map { [head] + $0 }
 }
 
-func permutations<T>(xs: [T]) -> [[T]] {
+func permutations<T>(_ xs: [T]) -> [[T]] {
     guard let (head, tail) = xs.decompose() else { return [[]] }
     return permutations(tail).flatMap { between(head, $0) }
 }

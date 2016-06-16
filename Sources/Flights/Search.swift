@@ -1,6 +1,6 @@
 import Foundation
 
-func findDirectFlight(origin origin: String, destination: String) -> (Set<String>) {
+func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
 
     var daysAvailableList = Set<String>()
 
@@ -8,7 +8,7 @@ func findDirectFlight(origin origin: String, destination: String) -> (Set<String
 
     if airportList.contains(airportOrigin) {
 
-        let indexAirport = airportList.indexOf(airportOrigin)
+        let indexAirport = airportList.index(of: airportOrigin)
 
         for flight in airportList[indexAirport!].flights {
             if flight.destination == destination {
@@ -29,7 +29,7 @@ func findDirectFlight(origin origin: String, destination: String) -> (Set<String
 
 }
 
-func findRouteSameDay(origin origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> () {
+func findRouteSameDay(origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> () {
 
     if currentCity==arrival {
         printfulldebug("----------Found an answer--------START----------")
@@ -43,7 +43,7 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 
     if airportList.contains(airportCity) {
 
-        let indexAirport = airportList.indexOf(airportCity)
+        let indexAirport = airportList.index(of: airportCity)
 
         for flight in airportList[indexAirport!].flights where flight.days[currentDay] == true {
 
@@ -59,7 +59,7 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 
                 findRouteSameDay(origin: origin, arrival: arrival, currentDay: currentDay, currentCity: flight.destination, currentTime: flight.timeArrival)
 
-                stack.pop()
+                _ = stack.pop()
             }
 
         }
@@ -72,7 +72,7 @@ func findRouteSameDay(origin origin: String, arrival: String, currentDay: String
 }
 
 
-func findCircuits(origin origin: String, arrival: String, currentDay: String, currentCity: String, citiesToVisit: [String]) -> ([String]) {
+func findCircuits(origin: String, arrival: String, currentDay: String, currentCity: String, citiesToVisit: [String]) -> ([String]) {
 
     var citiesNotVisited = citiesToVisit
 
@@ -93,7 +93,7 @@ func findCircuits(origin origin: String, arrival: String, currentDay: String, cu
 
     } else {
 
-        let dest = citiesNotVisited.removeAtIndex(0)
+        let dest = citiesNotVisited.remove(at: 0)
         let destDays = findDirectFlight(origin: currentCity, destination: dest)
 
         if destDays.contains(currentDay) {

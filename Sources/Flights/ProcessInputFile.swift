@@ -3,7 +3,7 @@ import Foundation
 func processFile () {
 
     print("Trying to open the file: \(filelocation) ... ",terminator:"")
-    let fileContent = try? NSString(contentsOfFile: filelocation, encoding: NSUTF8StringEncoding)
+    let fileContent = try? NSString(contentsOfFile: filelocation, encoding: String.Encoding.utf8.rawValue)
 
     if fileContent == nil {
         print("\(Colors.Red("Something went wrong while trying to open that file!"))")
@@ -17,7 +17,7 @@ func processFile () {
         printfulldebug("\(ANSI.Cyan)######END OF FILE CONTENT######\(ANSI.Reset)\n")
 
         let delimiter = "."
-        let linesList = fileContent!.componentsSeparatedByString(delimiter)
+        let linesList = fileContent!.components(separatedBy: delimiter)
 
         // Each line of the linesList has a source and destination airport and flight info
         for line in linesList {
@@ -30,18 +30,18 @@ func processFile () {
 
 
             // CLEAN THE STRING
-            let newline1 = line.stringByReplacingOccurrencesOfString("timetable(", withString: "")
-            let newline2 = newline1.stringByReplacingOccurrencesOfString("\n", withString: "")
-            let newline3 = newline2.stringByReplacingOccurrencesOfString("\t", withString: "")
-            let newline4 = newline3.stringByReplacingOccurrencesOfString(" ", withString: "")
+            let newline1 = line.replacingOccurrences(of: "timetable(", with: "")
+            let newline2 = newline1.replacingOccurrences(of: "\n", with: "")
+            let newline3 = newline2.replacingOccurrences(of: "\t", with: "")
+            let newline4 = newline3.replacingOccurrences(of: " ", with: "")
 
 
-            if let comma_range = newline4.rangeOfString(","),
-                let left_bracket = newline4.rangeOfString("[") {
+            if let comma_range = newline4.range(of: ","),
+                let left_bracket = newline4.range(of: "[") {
 
-                let flightSource = newline4[newline4.startIndex..<comma_range.startIndex]
-                let secondPart = newline4[comma_range.startIndex..<left_bracket.startIndex]
-                let thirdPart = newline4[left_bracket.startIndex..<newline4.endIndex]
+                let flightSource = newline4[newline4.startIndex..<comma_range.lowerBound]
+                let secondPart = newline4[comma_range.lowerBound..<left_bracket.lowerBound]
+                let thirdPart = newline4[left_bracket.lowerBound..<newline4.endIndex]
 
                 printfulldebug("Source: |\(flightSource)|")
 
@@ -52,27 +52,27 @@ func processFile () {
                 }
 
 
-                let flightDestination = secondPart[secondPart.startIndex.advancedBy(1)..<secondPart.endIndex.advancedBy(-1)]
+                let flightDestination = secondPart[secondPart.characters.index(secondPart.startIndex, offsetBy: 1)..<secondPart.characters.index(secondPart.endIndex, offsetBy: -1)]
 
                 printfulldebug("Destination: |\(flightDestination)|")
 
-                let thirdPartv2 = thirdPart[thirdPart.startIndex.advancedBy(1)..<thirdPart.endIndex.advancedBy(-2)]
+                let thirdPartv2 = thirdPart[thirdPart.characters.index(thirdPart.startIndex, offsetBy: 1)..<thirdPart.characters.index(thirdPart.endIndex, offsetBy: -2)]
 
 
-                let thirdPartv3 = thirdPartv2.stringByReplacingOccurrencesOfString("],",withString: "];")
-                let thirdPartFinal = thirdPartv3.stringByReplacingOccurrencesOfString("alldays,",withString: "alldays;")
+                let thirdPartv3 = thirdPartv2.replacingOccurrences(of: "],",with: "];")
+                let thirdPartFinal = thirdPartv3.replacingOccurrences(of: "alldays,",with: "alldays;")
 
                 printfulldebug("Third: |\(thirdPartFinal)|")
 
                 let delimiter = ";"
-                let listOfInfos = thirdPartFinal.componentsSeparatedByString(delimiter)
+                let listOfInfos = thirdPartFinal.components(separatedBy: delimiter)
 
                 for wholeInfo in listOfInfos {
 
                     printfulldebug("\(ANSI.Magenta)--------:START:-------\(ANSI.Reset)")
 
                     let delimiter = "/"
-                    let infos = wholeInfo.componentsSeparatedByString(delimiter)
+                    let infos = wholeInfo.components(separatedBy: delimiter)
 
                     let tmp_timeLeaving = infos[0]
                     let tmp_timeArrival = infos[1]
@@ -99,12 +99,12 @@ func processFile () {
                         tmp_days["su"] = true
                     } else {
 
-                        let more_tmp_days = _tmp_days.stringByReplacingOccurrencesOfString("[", withString: "")
-                        let more_more_tmp_days = more_tmp_days.stringByReplacingOccurrencesOfString("]", withString: "")
+                        let more_tmp_days = _tmp_days.replacingOccurrences(of: "[", with: "")
+                        let more_more_tmp_days = more_tmp_days.replacingOccurrences(of: "]", with: "")
 
 
                         let delimiter = ","
-                        let days_info = more_more_tmp_days.componentsSeparatedByString(delimiter)
+                        let days_info = more_more_tmp_days.components(separatedBy: delimiter)
 
 
                         for lol in days_info {
@@ -116,7 +116,7 @@ func processFile () {
                     let flight = FlightInfo(code: tmp_code, destination: flightDestination, timeLeaving: tmp_timeLeaving, timeArrival: tmp_timeArrival, days: tmp_days)
 
                     let tmp_airport_hack = Airport(city: flightSource)
-                    let indexAirport = airportList.indexOf(tmp_airport_hack)
+                    let indexAirport = airportList.index(of: tmp_airport_hack)
                     airportList[indexAirport!].flights.append(flight)
 
                     for info in infos {
@@ -142,7 +142,7 @@ func processFile () {
         printdebug("The Database has \(airportList.count) Airports, and here they are: ")
         printdebug("")
 
-        for (index,airpoirt) in airportList.enumerate() {
+        for (index,airpoirt) in airportList.enumerated() {
             printdebug("Airport number \(index+1): \(airpoirt.city) has \(airpoirt.flights.count) flights ")
             printdebug("----------------------------------------------------------------")
             printdebug(airpoirt.flights)

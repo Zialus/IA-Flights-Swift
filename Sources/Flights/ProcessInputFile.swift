@@ -3,7 +3,12 @@ import Foundation
 func processFile () {
 
     print("Trying to open the file: \(filelocation) ... ", terminator:"")
-    let fileContent = try? NSString(contentsOfFile: filelocation, encoding: String.Encoding.utf8.rawValue)
+
+    #if os(Linux)
+        let fileContent = try? NSString(contentsOfFile: filelocation, encoding: NSUTF8StringEncoding)
+    #else
+        let fileContent = try? NSString(contentsOfFile: filelocation, encoding: String.Encoding.utf8.rawValue)
+    #endif
 
     if fileContent == nil {
         print("\(Colors.Red("Something went wrong while trying to open that file!"))")

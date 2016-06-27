@@ -80,7 +80,7 @@ func findCircuits(origin: String, arrival: String, currentDay: String, currentCi
 
         let destDays = findDirectFlight(origin: currentCity, destination: arrival)
 
-        if (destDays.contains(currentDay)) {
+        if destDays.contains(currentDay) {
             var route = [String]()
             route.append(currentCity)
             route.append(currentDay)
@@ -102,9 +102,9 @@ func findCircuits(origin: String, arrival: String, currentDay: String, currentCi
             route.append(currentDay)
 
             let next_day = nextDay(currentDay)
-            route += findCircuits(origin: origin, arrival: arrival, currentDay: next_day, currentCity: dest,citiesToVisit: citiesNotVisited)
+            route += findCircuits(origin: origin, arrival: arrival, currentDay: next_day, currentCity: dest, citiesToVisit: citiesNotVisited)
 
-            if (route.last == arrival){
+            if route.last == arrival {
                 return route
             }
         }

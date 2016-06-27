@@ -2,7 +2,7 @@ import Foundation
 
 func processFile () {
 
-    print("Trying to open the file: \(filelocation) ... ",terminator:"")
+    print("Trying to open the file: \(filelocation) ... ", terminator:"")
     let fileContent = try? NSString(contentsOfFile: filelocation, encoding: String.Encoding.utf8.rawValue)
 
     if fileContent == nil {
@@ -142,7 +142,7 @@ func processFile () {
         printdebug("The Database has \(airportList.count) Airports, and here they are: ")
         printdebug("")
 
-        for (index,airpoirt) in airportList.enumerated() {
+        for (index, airpoirt) in airportList.enumerated() {
             printdebug("Airport number \(index+1): \(airpoirt.city) has \(airpoirt.flights.count) flights ")
             printdebug("----------------------------------------------------------------")
             printdebug(airpoirt.flights)

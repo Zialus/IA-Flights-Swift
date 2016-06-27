@@ -288,7 +288,7 @@ func searchRoutes() -> () {
 
     if stackList.count == 0 {
         print("There is no way to get from \(origin) to \(destination) on \(day)!")
-    } else  {
+    } else {
         print()
         if stackList.count == 1 {
             print("There is only one way to get from \(origin) to \(destination) on \(day).")
@@ -305,9 +305,9 @@ func searchRoutes() -> () {
             }
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         }
-        
+
     }
-    
+
 }
 
 func searchCircuits() -> () {
@@ -437,35 +437,35 @@ func searchCircuits() -> () {
 
         let result = findCircuits( origin: origin, arrival: destination, currentDay: day, currentCity: origin, citiesToVisit: orderOfVisit)
 
-        if !result.isEmpty{
+        if !result.isEmpty {
 
             foundSolution = true
 
             print()
             print("\nFound a solution:")
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-            
-            
-            for (index,element) in result.enumerated(){
-                
-                if (index == 0) { print ("| Starting the route from: \(element) ",terminator:"\n")}
-                else if (index%2 != 0) { print("| Catching a flight [ \(dayPrettyPrinting(element)) ]",terminator:"") }
-                else if (index%2 == 0) { print(" to arrive at [ \(element) ] ",terminator:"\n") }
 
-                
+
+            for (index, element) in result.enumerated() {
+
+                if (index == 0) { print ("| Starting the route from: \(element) ", terminator:"\n")}
+                else if (index%2 != 0) { print("| Catching a flight [ \(dayPrettyPrinting(element)) ]", terminator:"") }
+                else if (index%2 == 0) { print(" to arrive at [ \(element) ] ", terminator:"\n") }
+
+
             }
-            
+
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-            
+
         }
-        
+
     }
-    
-    if foundSolution == false{
+
+    if foundSolution == false {
         print()
         print("No solution was found")
         print()
     }
-    
-    
+
+
 }

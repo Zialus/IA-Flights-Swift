@@ -2,7 +2,7 @@ import PackageDescription
 
 let package = Package(
     name: "Flights",
-	dependencies: [
+    dependencies: [
         .Package(url: "https://github.com/onevcat/Rainbow.git", majorVersion: 2)
     ]
 )

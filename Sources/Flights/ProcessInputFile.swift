@@ -61,8 +61,8 @@ func processFile () {
                 let thirdPartv2 = thirdPart[thirdPart.characters.index(thirdPart.startIndex, offsetBy: 1)..<thirdPart.characters.index(thirdPart.endIndex, offsetBy: -2)]
 
 
-                let thirdPartv3 = thirdPartv2.replacingOccurrences(of: "],",with: "];")
-                let thirdPartFinal = thirdPartv3.replacingOccurrences(of: "alldays,",with: "alldays;")
+                let thirdPartv3 = thirdPartv2.replacingOccurrences(of: "],", with: "];")
+                let thirdPartFinal = thirdPartv3.replacingOccurrences(of: "alldays,", with: "alldays;")
 
                 printfulldebug("Third: |\(thirdPartFinal)|")
 

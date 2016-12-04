@@ -71,7 +71,6 @@ func findRouteSameDay(origin: String, arrival: String, currentDay: String, curre
     return
 }
 
-
 func findCircuits(origin: String, arrival: String, currentDay: String, currentCity: String, citiesToVisit: [String]) -> ([String]) {
 
     var citiesNotVisited = citiesToVisit

@@ -109,7 +109,6 @@ func dayPrettyPrinting(_ day: String) -> (String) {
 
 }
 
-
 //--------------Code that allows for Array permutations------------//
 extension Array {
     func decompose() -> (Iterator.Element, [Iterator.Element])? {

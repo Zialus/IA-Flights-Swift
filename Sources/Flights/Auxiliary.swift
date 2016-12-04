@@ -34,7 +34,7 @@ func printfulldebug(_ string: Any) -> () {
     }
 }
 
-func nextDay(_ day: String) -> (String) {
+func dayAfter(_ day: String) -> (String) {
 
     let nextday: String
 

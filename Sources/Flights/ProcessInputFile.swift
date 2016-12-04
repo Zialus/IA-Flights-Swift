@@ -1,4 +1,5 @@
 import Foundation
+import Rainbow
 
 func processFile () {
 
@@ -7,15 +8,15 @@ func processFile () {
     let fileContent = try? NSString(contentsOfFile: filelocation, encoding: String.Encoding.utf8.rawValue)
 
     if fileContent == nil {
-        print("\(Colors.Red("Something went wrong while trying to open that file!"))")
+        print("Something went wrong while trying to open that file!".red)
         exit(1)
     } else {
 
-        print("\(Colors.Green("File opened successfuly!"))")
+        print("File opened successfuly!".lightGreen)
 
-        printfulldebug("\n\(ANSI.Cyan)######BEGINNING OF FILE CONTENT######\(ANSI.Reset)")
+        printfulldebug("\n\(ANSI.cyan)######BEGINNING OF FILE CONTENT######\(ANSI.reset)")
         printfulldebug(fileContent!)
-        printfulldebug("\(ANSI.Cyan)######END OF FILE CONTENT######\(ANSI.Reset)\n")
+        printfulldebug("\(ANSI.cyan)######END OF FILE CONTENT######\(ANSI.reset)\n")
 
         let delimiter = "."
         let linesList = fileContent!.components(separatedBy: delimiter)
@@ -23,11 +24,11 @@ func processFile () {
         // Each line of the linesList has a source and destination airport and flight info
         for line in linesList {
 
-            printfulldebug("\(ANSI.Cyan)~~~~~~~~~~~~~~~~BEGINNING OF LINE~~~~~~~~~~~~~~~~\(ANSI.Reset)")
+            printfulldebug("\(ANSI.cyan)~~~~~~~~~~~~~~~~BEGINNING OF LINE~~~~~~~~~~~~~~~~\(ANSI.reset)")
 
-            printfulldebug("\(ANSI.Yellow)$$$$$$--FULL LINE--$$$$$$$\(ANSI.Reset)")
+            printfulldebug("\(ANSI.yellow)$$$$$$--FULL LINE--$$$$$$$\(ANSI.reset)")
             printfulldebug(line)
-            printfulldebug("\(ANSI.Yellow)$$$$$$--END OF IT--$$$$$$$\(ANSI.Reset)")
+            printfulldebug("\(ANSI.yellow)$$$$$$--END OF IT--$$$$$$$\(ANSI.reset)")
 
 
             // CLEAN THE STRING
@@ -70,7 +71,7 @@ func processFile () {
 
                 for wholeInfo in listOfInfos {
 
-                    printfulldebug("\(ANSI.Magenta)--------:START:-------\(ANSI.Reset)")
+                    printfulldebug("\(ANSI.magenta)--------:START:-------\(ANSI.reset)")
 
                     let delimiter = "/"
                     let infos = wholeInfo.components(separatedBy: delimiter)
@@ -125,20 +126,21 @@ func processFile () {
 
                     }
 
-                    printfulldebug("\(ANSI.Magenta)--------:OVER:--------\(ANSI.Reset)")
+                    printfulldebug("\(ANSI.magenta)--------:OVER:--------\(ANSI.reset)")
 
 
                 }
 
             }
 
-            printfulldebug("\(ANSI.Cyan)~~~~~~~~~~~~~~~~END OF LINE~~~~~~~~~~~~~~~~~~~~~~\(ANSI.Reset)")
+            printfulldebug("\(ANSI.cyan)~~~~~~~~~~~~~~~~END OF LINE~~~~~~~~~~~~~~~~~~~~~~\(ANSI.reset)")
         }
 
-        printdebug("")
-        printdebug(Colors.Green("/----------------------------------------------------------------------\\"))
-        printdebug(Colors.Green("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|"))
-        printdebug(Colors.Green("\\----------------------------------------------------------------------/"))
+        printdebug(ANSI.lightGreen)
+        printdebug("/----------------------------------------------------------------------\\")
+        printdebug("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|")
+        printdebug("\\----------------------------------------------------------------------/")
+        printdebug(ANSI.reset)
 
         printdebug("The Database has \(airportList.count) Airports, and here they are: ")
         printdebug("")

@@ -5,7 +5,7 @@ all:
 	mv ./.build/release/Flights .
 
 clean:
-	swift build --clean
+	swift package clean
 	if [ -f ./Flights ]; then rm ./Flights; fi
 
 test: test1 test2 test3

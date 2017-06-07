@@ -30,13 +30,11 @@ func processFile () {
             printfulldebug(line)
             printfulldebug("\(ANSI.yellow)$$$$$$--END OF IT--$$$$$$$\(ANSI.reset)")
 
-
             // CLEAN THE STRING
             let newline1 = line.replacingOccurrences(of: "timetable(", with: "")
             let newline2 = newline1.replacingOccurrences(of: "\n", with: "")
             let newline3 = newline2.replacingOccurrences(of: "\t", with: "")
             let newline4 = newline3.replacingOccurrences(of: " ", with: "")
-
 
             if let comma_range = newline4.range(of: ","),
                 let left_bracket = newline4.range(of: "[") {
@@ -53,15 +51,14 @@ func processFile () {
                     airportList.insert(airport_tmp)
                 }
 
-
                 let flightDestination = secondPart[secondPart.characters.index(secondPart.startIndex, offsetBy: 1)..<secondPart.characters.index(secondPart.endIndex, offsetBy: -1)]
 
                 printfulldebug("Destination: |\(flightDestination)|")
 
                 let thirdPartv2 = thirdPart[thirdPart.characters.index(thirdPart.startIndex, offsetBy: 1)..<thirdPart.characters.index(thirdPart.endIndex, offsetBy: -2)]
 
-
                 let thirdPartv3 = thirdPartv2.replacingOccurrences(of: "],", with: "];")
+
                 let thirdPartFinal = thirdPartv3.replacingOccurrences(of: "alldays,", with: "alldays;")
 
                 printfulldebug("Third: |\(thirdPartFinal)|")
@@ -104,10 +101,8 @@ func processFile () {
                         let more_tmp_days = _tmp_days.replacingOccurrences(of: "[", with: "")
                         let more_more_tmp_days = more_tmp_days.replacingOccurrences(of: "]", with: "")
 
-
                         let delimiter = ","
                         let days_info = more_more_tmp_days.components(separatedBy: delimiter)
-
 
                         for lol in days_info {
                             tmp_days[lol]=true
@@ -127,7 +122,6 @@ func processFile () {
                     }
 
                     printfulldebug("\(ANSI.magenta)--------:OVER:--------\(ANSI.reset)")
-
 
                 }
 
@@ -152,7 +146,6 @@ func processFile () {
             printdebug("----------------------------------------------------------------")
             printdebug("")
         }
-
 
     }
 

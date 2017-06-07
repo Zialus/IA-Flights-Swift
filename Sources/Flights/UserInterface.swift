@@ -45,7 +45,7 @@ func welcomeMessage() {
     print(ANSI.reset)
 }
 
-func proccessCmdLineArgs() -> () {
+func proccessCmdLineArgs() -> Void {
 
     if CommandLine.arguments.count < 2 {
         print()
@@ -128,7 +128,7 @@ func menu() -> (Int) {
 
 }
 
-func searchDirectFlights() -> () {
+func searchDirectFlights() -> Void {
 
     var origin: String! = nil
     var destination: String! = nil
@@ -201,7 +201,7 @@ func searchDirectFlights() -> () {
 
 }
 
-func searchRoutes() -> () {
+func searchRoutes() -> Void {
 
     var origin: String! = nil
     var destination: String! = nil
@@ -311,7 +311,7 @@ func searchRoutes() -> () {
 
 }
 
-func searchCircuits() -> () {
+func searchCircuits() -> Void {
 
     var origin: String! = nil
     var destination: String! = nil
@@ -453,7 +453,6 @@ func searchCircuits() -> () {
                 else if (index%2 != 0) { print("| Catching a flight [ \(dayPrettyPrinting(element)) ]", terminator:"") }
                 else if (index%2 == 0) { print(" to arrive at [ \(element) ] ", terminator:"\n") }
 
-
             }
 
             print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -467,6 +466,5 @@ func searchCircuits() -> () {
         print("No solution was found")
         print()
     }
-
 
 }

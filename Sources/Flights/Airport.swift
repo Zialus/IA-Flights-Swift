@@ -12,22 +12,19 @@ class Airport {
 }
 
 extension Airport: CustomStringConvertible {
-
     var description: String {
         return "City: \(city) --- Flights: \(flights)"
     }
-
 }
 
 extension Airport: Hashable {
-
     var hashValue: Int {
         return self.city.hashValue
     }
-
 }
 
-// Makes the class Airport Equatable
-func == (lhs: Airport, rhs: Airport) -> Bool {
-    return lhs.city == rhs.city
+extension Airport: Equatable {
+    static func == (lhs: Airport, rhs: Airport) -> Bool {
+        return lhs.city == rhs.city
+    }
 }

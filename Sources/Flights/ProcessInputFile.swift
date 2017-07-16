@@ -39,9 +39,9 @@ func processFile () {
             if let comma_range = newline4.range(of: ","),
                 let left_bracket = newline4.range(of: "[") {
 
-                let flightSource = newline4[newline4.startIndex..<comma_range.lowerBound]
-                let secondPart = newline4[comma_range.lowerBound..<left_bracket.lowerBound]
-                let thirdPart = newline4[left_bracket.lowerBound..<newline4.endIndex]
+                let flightSource = String(newline4[newline4.startIndex..<comma_range.lowerBound])
+                let secondPart = String(newline4[comma_range.lowerBound..<left_bracket.lowerBound])
+                let thirdPart = String(newline4[left_bracket.lowerBound..<newline4.endIndex])
 
                 printfulldebug("Source: |\(flightSource)|")
 
@@ -51,13 +51,13 @@ func processFile () {
                     airportList.insert(airport_tmp)
                 }
 
-                let flightDestination = secondPart[secondPart.characters.index(secondPart.startIndex, offsetBy: 1)..<secondPart.characters.index(secondPart.endIndex, offsetBy: -1)]
+                let flightDestination = String(secondPart[secondPart.characters.index(secondPart.startIndex, offsetBy: 1)..<secondPart.characters.index(secondPart.endIndex, offsetBy: -1)])
 
                 printfulldebug("Destination: |\(flightDestination)|")
 
                 let thirdPartv2 = thirdPart[thirdPart.characters.index(thirdPart.startIndex, offsetBy: 1)..<thirdPart.characters.index(thirdPart.endIndex, offsetBy: -2)]
 
-                let thirdPartv3 = thirdPartv2.replacingOccurrences(of: "],", with: "];")
+                let thirdPartv3 = String(thirdPartv2).replacingOccurrences(of: "],", with: "];")
 
                 let thirdPartFinal = thirdPartv3.replacingOccurrences(of: "alldays,", with: "alldays;")
 

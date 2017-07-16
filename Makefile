@@ -1,12 +1,13 @@
 DEBUGMODE = fulldebug
+EXEC = Flights
 
 all:
-	swift build -Xswiftc -O -c release
-	mv ./.build/release/Flights .
+	swift build -Xswiftc -O -Xswiftc -wmo -c release
+	cp ./.build/release/$(EXEC) .
 
 clean:
 	swift package clean
-	if [ -f ./Flights ]; then rm ./Flights; fi
+	if [ -f ./$(EXEC) ]; then rm ./$(EXEC); fi
 
 test: test1 test2 test3
 

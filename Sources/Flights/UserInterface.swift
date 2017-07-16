@@ -49,7 +49,7 @@ func proccessCmdLineArgs() -> Void {
 
     if CommandLine.arguments.count < 2 {
         print()
-        print("Too few arguments!".red + "Try launching with the argument \"--help\" ")
+        print("Too few arguments!".red + " Try launching with the argument \"--help\" ")
         print()
         exit(1)
     } else if CommandLine.arguments[1] == "--help" {

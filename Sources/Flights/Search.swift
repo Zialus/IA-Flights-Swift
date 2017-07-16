@@ -12,10 +12,8 @@ func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
 
         for flight in airportList[indexAirport!].flights where flight.destination == destination {
 
-                for (day, bool) in flight.days {
-                    if bool == true {
+                for (day, bool) in flight.days where bool == true {
                         daysAvailableList.insert(day)
-                    }
                 }
 
         }

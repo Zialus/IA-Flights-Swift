@@ -21,7 +21,7 @@ public struct Stack<T> {
         return array.popLast()
     }
 
-    public func peek() -> T? {
+    public var top: T? {
         return array.last
     }
 }

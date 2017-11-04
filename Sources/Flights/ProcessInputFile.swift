@@ -51,11 +51,11 @@ func processFile () {
                     airportList.insert(airport_tmp)
                 }
 
-                let flightDestination = String(secondPart[secondPart.characters.index(secondPart.startIndex, offsetBy: 1)..<secondPart.characters.index(secondPart.endIndex, offsetBy: -1)])
+                let flightDestination = String(secondPart[secondPart.index(secondPart.startIndex, offsetBy: 1)..<secondPart.index(secondPart.endIndex, offsetBy: -1)])
 
                 printfulldebug("Destination: |\(flightDestination)|")
 
-                let thirdPartv2 = thirdPart[thirdPart.characters.index(thirdPart.startIndex, offsetBy: 1)..<thirdPart.characters.index(thirdPart.endIndex, offsetBy: -2)]
+                let thirdPartv2 = thirdPart[thirdPart.index(thirdPart.startIndex, offsetBy: 1)..<thirdPart.index(thirdPart.endIndex, offsetBy: -2)]
 
                 let thirdPartv3 = String(thirdPartv2).replacingOccurrences(of: "],", with: "];")
 

@@ -3,7 +3,7 @@ import Rainbow
 
 func processFile () {
 
-    print("Trying to open the file: \(filelocation) ... ", terminator:"")
+    print("Trying to open the file: \(filelocation) ... ", terminator: "")
 
     let fileContent = try? NSString(contentsOfFile: filelocation, encoding: String.Encoding.utf8.rawValue)
 
@@ -78,7 +78,7 @@ func processFile () {
                     let tmp_code = infos[2]
                     let _tmp_days = infos[3]
 
-                    var tmp_days = [String:Bool]()
+                    var tmp_days = [String: Bool]()
 
                     tmp_days["mo"] = false
                     tmp_days["tu"] = false

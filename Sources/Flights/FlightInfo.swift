@@ -5,9 +5,9 @@ class FlightInfo {
     let destination: String
     let timeLeaving: Int
     let timeArrival: Int
-    let days: [String:Bool]
+    let days: [String: Bool]
 
-    init(code: String, destination: String, timeLeaving: String, timeArrival: String, days: [String:Bool]) {
+    init(code: String, destination: String, timeLeaving: String, timeArrival: String, days: [String: Bool]) {
         self.code = code
         self.destination = destination
         self.timeLeaving = timeToMins(timeLeaving)

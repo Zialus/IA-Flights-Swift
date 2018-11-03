@@ -130,65 +130,11 @@ func menu() -> (Int) {
 
 func searchDirectFlights() -> Void {
 
-    var origin: String! = nil
-    var destination: String! = nil
-
-    originLoop: while origin == nil {
-
-        print("\nInsert the departure city name:")
-        if let userInput = readLine(strippingNewline: true) {
-
-            let airportOrigin = Airport(city: userInput)
-
-            if !airportList.contains(airportOrigin) {
-                print()
-                print("The city: \"\(userInput)\" does not have an airport!")
-                print()
-                usleep(600000)
-                continue originLoop
-
-            } else {
-                origin = userInput
-            }
-
-
-        } else {
-            print("something weird happend...")
-        }
-
-    }
-
-    destinationLoop: while destination == nil {
-
-        print("Insert the arrival city name:")
-        if let userInput = readLine(strippingNewline: true) {
-
-            let airportDestination = Airport(city: userInput)
-
-            if !airportList.contains(airportDestination) {
-                print()
-                print("The city: \"\(userInput)\" does not have an airport!")
-                print()
-                usleep(600000)
-                continue destinationLoop
-
-            } else {
-
-                destination = userInput
-            }
-
-
-        } else {
-            print("something weird happend...")
-        }
-
-    }
+    let (origin, destination) = readOriginDestinationInput()
 
     print("\nChecking flights between \(origin) and \(destination)...\n")
 
-
     let result = findDirectFlight(origin: origin, destination: destination)
-
 
     if result.count == 0 {
         print("There are no flights available between \(origin) and \(destination) !")
@@ -203,81 +149,8 @@ func searchDirectFlights() -> Void {
 
 func searchRoutes() -> Void {
 
-    var origin: String! = nil
-    var destination: String! = nil
-    var day: String! = nil
-
-    originLoop: while origin == nil {
-
-        print("\nInsert the departure city name:")
-        if let userInput = readLine(strippingNewline: true) {
-
-            let airportOrigin = Airport(city: userInput)
-
-            if !airportList.contains(airportOrigin) {
-                print()
-                print("The city: \"\(userInput)\" does not have an airport!")
-                print()
-                usleep(600000)
-                continue originLoop
-
-            } else {
-                origin = userInput
-            }
-
-
-        } else {
-            print("something weird happend...")
-        }
-
-    }
-
-    destinationLoop: while destination == nil {
-
-        print("Insert the arrival city name:")
-        if let userInput = readLine(strippingNewline: true) {
-
-            let airportDestination = Airport(city: userInput)
-
-            if !airportList.contains(airportDestination) {
-                print()
-                print("The city: \"\(userInput)\" does not have an airport!")
-                print()
-                usleep(600000)
-                continue destinationLoop
-
-            } else {
-
-                destination = userInput
-            }
-
-
-        } else {
-            print("something weird happend...")
-        }
-
-    }
-
-    dayLoop: while day == nil {
-
-        print("Insert the day to look up:")
-        if let userInput = readLine(strippingNewline: true) {
-
-            if userInput != "mo" && userInput != "tu" && userInput != "we" && userInput != "th" && userInput != "fr" && userInput != "sa" && userInput != "su" {
-                print()
-                print("Incorrect day! Day: \"\(userInput)\" is not valid! \t Be more careful!")
-                print()
-                usleep(600000)
-                continue dayLoop
-            } else {
-                day = userInput
-            }
-
-        } else {
-            print("something weird happend...")
-        }
-
-    }
+    let (origin,destination) = readOriginDestinationInput()
+    let day = readDayInput()
 
     print("\n\nTrying to find a route between \(origin) and \(destination)...")
 
@@ -313,80 +186,8 @@ func searchRoutes() -> Void {
 
 func searchCircuits() -> Void {
 
-    var origin: String! = nil
-    var destination: String! = nil
-    var day: String! = nil
-
-    originLoop: while origin == nil {
-
-        print("\nInsert the departure city name:")
-        if let userInput = readLine(strippingNewline: true) {
-
-            let airportOrigin = Airport(city: userInput)
-
-            if !airportList.contains(airportOrigin) {
-                print()
-                print("The city: \"\(userInput)\" does not have an airport!")
-                print()
-                usleep(600000)
-                continue originLoop
-
-            } else {
-                origin = userInput
-            }
-
-        } else {
-            print("something weird happend...")
-        }
-
-    }
-
-    destinationLoop: while destination == nil {
-
-        print("Insert the arrival city name:")
-        if let userInput = readLine(strippingNewline: true) {
-
-            let airportDestination = Airport(city: userInput)
-
-            if !airportList.contains(airportDestination) {
-                print()
-                print("The city: \"\(userInput)\" does not have an airport!")
-                print()
-                usleep(600000)
-                continue destinationLoop
-
-            } else {
-
-                destination = userInput
-            }
-
-
-        } else {
-            print("something weird happend...")
-        }
-
-    }
-
-    dayLoop: while day == nil {
-
-        print("Insert the day to start the journey:")
-        if let userInput = readLine(strippingNewline: true) {
-
-            if userInput != "mo" && userInput != "tu" && userInput != "we" && userInput != "th" && userInput != "fr" && userInput != "sa" && userInput != "su" {
-                print()
-                print("Incorrect day! Day: \"\(userInput)\" is not valid! \t Be more careful!")
-                print()
-                usleep(600000)
-                continue dayLoop
-            } else {
-                day = userInput
-            }
-
-        } else {
-            print("something weird happend...")
-        }
-
-    }
+    let (origin,destination) = readOriginDestinationInput()
+    let day = readDayInput()
 
     var citiesToVisit = [String]()
     var numberOfCities: Int?
@@ -403,9 +204,9 @@ func searchCircuits() -> Void {
 
     }
 
-    citiesLoop: while citiesToVisit.count != numberOfCities {
-
+    while citiesToVisit.count != numberOfCities {
         print("Insert the name of city number \(citiesToVisit.count+1):")
+
         if let userInput = readLine(strippingNewline: true) {
 
             let airport = Airport(city: userInput)
@@ -415,17 +216,13 @@ func searchCircuits() -> Void {
                 print("The city: \"\(userInput)\" does not have an airport!")
                 print()
                 usleep(600000)
-                continue citiesLoop
-
             } else {
                 citiesToVisit.append(userInput)
             }
 
-
         } else {
             print("something weird happend...")
         }
-
     }
 
     let allPossibleVisitOrders = permutations(citiesToVisit)
@@ -467,4 +264,83 @@ func searchCircuits() -> Void {
         print()
     }
 
+}
+
+func readOriginDestinationInput() -> (String, String) {
+    
+    var originTEMP: String?
+    var destinationTEMP: String?
+    
+    while originTEMP == nil {
+        print("\nInsert the departure city name:")
+        
+        if let userInput = readLine(strippingNewline: true) {
+            let airportOrigin = Airport(city: userInput)
+            
+            if !airportList.contains(airportOrigin) {
+                print()
+                print("The city: \"\(userInput)\" does not have an airport!")
+                print()
+                usleep(600000)
+            } else {
+                originTEMP = userInput
+            }
+            
+        } else {
+            print("something weird happend...")
+        }
+    }
+    
+    while destinationTEMP == nil {
+        print("Insert the arrival city name:")
+        
+        if let userInput = readLine(strippingNewline: true) {
+            let airportDestination = Airport(city: userInput)
+            
+            if !airportList.contains(airportDestination) {
+                print()
+                print("The city: \"\(userInput)\" does not have an airport!")
+                print()
+                usleep(600000)
+            } else {
+                destinationTEMP = userInput
+            }
+            
+        } else {
+            print("something weird happend...")
+        }
+    }
+    
+    let origin = originTEMP!
+    let destination = destinationTEMP!
+    return (origin, destination)
+    
+}
+
+func readDayInput() -> (String) {
+    
+    var dayTEMP: String?
+    
+    while dayTEMP == nil {
+        print("Insert the day to start the journey:")
+        
+        if let userInput = readLine(strippingNewline: true) {
+            
+            if userInput != "mo" && userInput != "tu" && userInput != "we" &&
+                userInput != "th" && userInput != "fr" && userInput != "sa" && userInput != "su" {
+                print()
+                print("Incorrect day! Day: \"\(userInput)\" is not valid! \t Be more careful!")
+                print()
+                usleep(600000)
+            } else {
+                dayTEMP = userInput
+            }
+            
+        } else {
+            print("something weird happend...")
+        }
+    }
+    
+    let day = dayTEMP!
+    return day
 }

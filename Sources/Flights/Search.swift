@@ -97,8 +97,8 @@ func findCircuits(origin: String, arrival: String, currentDay: String, currentCi
             route.append(currentCity)
             route.append(currentDay)
 
-            let next_day = dayAfter(currentDay)
-            route += findCircuits(origin: origin, arrival: arrival, currentDay: next_day, currentCity: dest, citiesToVisit: citiesNotVisited)
+            let nextDay = dayAfter(currentDay)
+            route += findCircuits(origin: origin, arrival: arrival, currentDay: nextDay, currentCity: dest, citiesToVisit: citiesNotVisited)
 
             if route.last == arrival {
                 return route

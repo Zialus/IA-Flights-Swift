@@ -5,148 +5,144 @@ func processFile () {
 
     print("Trying to open the file: \(filelocation) ... ", terminator: "")
 
-    let fileContent = try? NSString(contentsOfFile: filelocation, encoding: String.Encoding.utf8.rawValue)
-
-    if fileContent == nil {
+    guard let fileContent = try? String(contentsOfFile: filelocation) else {
         print("Something went wrong while trying to open that file!".red)
         exit(1)
-    } else {
+    }
 
-        print("File opened successfuly!".lightGreen)
+    print("File opened successfuly!".lightGreen)
 
-        printfulldebug("\n######BEGINNING OF FILE CONTENT######".cyan)
-        printfulldebug(fileContent!)
-        printfulldebug("######END OF FILE CONTENT######\n".cyan)
+    printfulldebug("\n######BEGINNING OF FILE CONTENT######".cyan)
+    printfulldebug(fileContent)
+    printfulldebug("######END OF FILE CONTENT######\n".cyan)
 
-        let delimiter = "."
-        let linesList = fileContent!.components(separatedBy: delimiter)
+    let delimiter = "."
+    let linesList = fileContent.components(separatedBy: delimiter)
 
-        // Each line of the linesList has a source and destination airport and flight info
-        for line in linesList {
+    // Each line of the linesList has a source and destination airport and flight info
+    for line in linesList {
 
-            printfulldebug("~~~~~~~~~~~~~~~~BEGINNING OF LINE~~~~~~~~~~~~~~~~".cyan)
+        printfulldebug("~~~~~~~~~~~~~~~~BEGINNING OF LINE~~~~~~~~~~~~~~~~".cyan)
 
-            printfulldebug("$$$$$$--FULL LINE--$$$$$$$".yellow)
-            printfulldebug(line)
-            printfulldebug("$$$$$$--END OF IT--$$$$$$$".yellow)
+        printfulldebug("$$$$$$--FULL LINE--$$$$$$$".yellow)
+        printfulldebug(line)
+        printfulldebug("$$$$$$--END OF IT--$$$$$$$".yellow)
 
-            // CLEAN THE STRING
-            let newline1 = line.replacingOccurrences(of: "timetable(", with: "")
-            let newline2 = newline1.replacingOccurrences(of: "\n", with: "")
-            let newline3 = newline2.replacingOccurrences(of: "\t", with: "")
-            let newline4 = newline3.replacingOccurrences(of: " ", with: "")
+        // CLEAN THE STRING
+        let newline1 = line.replacingOccurrences(of: "timetable(", with: "")
+        let newline2 = newline1.replacingOccurrences(of: "\n", with: "")
+        let newline3 = newline2.replacingOccurrences(of: "\t", with: "")
+        let newline4 = newline3.replacingOccurrences(of: " ", with: "")
 
-            if let comma_range = newline4.range(of: ","),
-                let left_bracket = newline4.range(of: "[") {
+        if let comma_range = newline4.range(of: ","),
+            let left_bracket = newline4.range(of: "[") {
 
-                let flightSource = String(newline4[newline4.startIndex..<comma_range.lowerBound])
-                let secondPart = String(newline4[comma_range.lowerBound..<left_bracket.lowerBound])
-                let thirdPart = String(newline4[left_bracket.lowerBound..<newline4.endIndex])
+            let flightSource = String(newline4[newline4.startIndex..<comma_range.lowerBound])
+            let secondPart = String(newline4[comma_range.lowerBound..<left_bracket.lowerBound])
+            let thirdPart = String(newline4[left_bracket.lowerBound..<newline4.endIndex])
 
-                printfulldebug("Source: |\(flightSource)|")
+            printfulldebug("Source: |\(flightSource)|")
 
-                let airport_tmp = Airport(city: flightSource)
+            let airport_tmp = Airport(city: flightSource)
 
-                if !airportList.contains(airport_tmp) {
-                    airportList.insert(airport_tmp)
-                }
+            if !airportList.contains(airport_tmp) {
+                airportList.insert(airport_tmp)
+            }
 
-                let flightDestination = String(secondPart[secondPart.index(secondPart.startIndex, offsetBy: 1)..<secondPart.index(secondPart.endIndex, offsetBy: -1)])
+            let flightDestination = String(secondPart[secondPart.index(secondPart.startIndex, offsetBy: 1)..<secondPart.index(secondPart.endIndex, offsetBy: -1)])
 
-                printfulldebug("Destination: |\(flightDestination)|")
+            printfulldebug("Destination: |\(flightDestination)|")
 
-                let thirdPartv2 = thirdPart[thirdPart.index(thirdPart.startIndex, offsetBy: 1)..<thirdPart.index(thirdPart.endIndex, offsetBy: -2)]
+            let thirdPartv2 = thirdPart[thirdPart.index(thirdPart.startIndex, offsetBy: 1)..<thirdPart.index(thirdPart.endIndex, offsetBy: -2)]
 
-                let thirdPartv3 = String(thirdPartv2).replacingOccurrences(of: "],", with: "];")
+            let thirdPartv3 = String(thirdPartv2).replacingOccurrences(of: "],", with: "];")
 
-                let thirdPartFinal = thirdPartv3.replacingOccurrences(of: "alldays,", with: "alldays;")
+            let thirdPartFinal = thirdPartv3.replacingOccurrences(of: "alldays,", with: "alldays;")
 
-                printfulldebug("Third: |\(thirdPartFinal)|")
+            printfulldebug("Third: |\(thirdPartFinal)|")
 
-                let delimiter = ";"
-                let listOfInfos = thirdPartFinal.components(separatedBy: delimiter)
+            let delimiter = ";"
+            let listOfInfos = thirdPartFinal.components(separatedBy: delimiter)
 
-                for wholeInfo in listOfInfos {
+            for wholeInfo in listOfInfos {
 
-                    printfulldebug("--------:START:-------".magenta)
+                printfulldebug("--------:START:-------".magenta)
 
-                    let delimiter = "/"
-                    let infos = wholeInfo.components(separatedBy: delimiter)
+                let delimiter = "/"
+                let infos = wholeInfo.components(separatedBy: delimiter)
 
-                    let tmp_timeLeaving = infos[0]
-                    let tmp_timeArrival = infos[1]
-                    let tmp_code = infos[2]
-                    let _tmp_days = infos[3]
+                let tmp_timeLeaving = infos[0]
+                let tmp_timeArrival = infos[1]
+                let tmp_code = infos[2]
+                let _tmp_days = infos[3]
 
-                    var tmp_days = [String: Bool]()
+                var tmp_days = [String: Bool]()
 
-                    tmp_days["mo"] = false
-                    tmp_days["tu"] = false
-                    tmp_days["we"] = false
-                    tmp_days["th"] = false
-                    tmp_days["fr"] = false
-                    tmp_days["sa"] = false
-                    tmp_days["su"] = false
+                tmp_days["mo"] = false
+                tmp_days["tu"] = false
+                tmp_days["we"] = false
+                tmp_days["th"] = false
+                tmp_days["fr"] = false
+                tmp_days["sa"] = false
+                tmp_days["su"] = false
 
-                    if _tmp_days == "alldays" {
-                        tmp_days["mo"] = true
-                        tmp_days["tu"] = true
-                        tmp_days["we"] = true
-                        tmp_days["th"] = true
-                        tmp_days["fr"] = true
-                        tmp_days["sa"] = true
-                        tmp_days["su"] = true
-                    } else {
+                if _tmp_days == "alldays" {
+                    tmp_days["mo"] = true
+                    tmp_days["tu"] = true
+                    tmp_days["we"] = true
+                    tmp_days["th"] = true
+                    tmp_days["fr"] = true
+                    tmp_days["sa"] = true
+                    tmp_days["su"] = true
+                } else {
 
-                        let more_tmp_days = _tmp_days.replacingOccurrences(of: "[", with: "")
-                        let more_more_tmp_days = more_tmp_days.replacingOccurrences(of: "]", with: "")
+                    let more_tmp_days = _tmp_days.replacingOccurrences(of: "[", with: "")
+                    let more_more_tmp_days = more_tmp_days.replacingOccurrences(of: "]", with: "")
 
-                        let delimiter = ","
-                        let days_info = more_more_tmp_days.components(separatedBy: delimiter)
+                    let delimiter = ","
+                    let days_info = more_more_tmp_days.components(separatedBy: delimiter)
 
-                        for lol in days_info {
-                            tmp_days[lol]=true
-                        }
-
+                    for lol in days_info {
+                        tmp_days[lol]=true
                     }
 
-                    let flight = FlightInfo(code: tmp_code, destination: flightDestination, timeLeaving: tmp_timeLeaving, timeArrival: tmp_timeArrival, days: tmp_days)
+                }
 
-                    let tmp_airport_hack = Airport(city: flightSource)
-                    let indexAirport = airportList.index(of: tmp_airport_hack)
-                    airportList[indexAirport!].flights.append(flight)
+                let flight = FlightInfo(code: tmp_code, destination: flightDestination, timeLeaving: tmp_timeLeaving, timeArrival: tmp_timeArrival, days: tmp_days)
 
-                    for info in infos {
-                        printfulldebug("\(info)")
+                let tmp_airport_hack = Airport(city: flightSource)
+                let indexAirport = airportList.index(of: tmp_airport_hack)
+                airportList[indexAirport!].flights.append(flight)
 
-                    }
-
-                    printfulldebug("--------:OVER:--------".magenta)
+                for info in infos {
+                    printfulldebug("\(info)")
 
                 }
+
+                printfulldebug("--------:OVER:--------".magenta)
 
             }
 
-            printfulldebug("~~~~~~~~~~~~~~~~END OF LINE~~~~~~~~~~~~~~~~~~~~~~".cyan)
         }
 
-        printdebug("")
-        printdebug("/----------------------------------------------------------------------\\".lightGreen)
-        printdebug("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|".lightGreen)
-        printdebug("\\----------------------------------------------------------------------/".lightGreen)
-        printdebug("")
+        printfulldebug("~~~~~~~~~~~~~~~~END OF LINE~~~~~~~~~~~~~~~~~~~~~~".cyan)
+    }
 
-        printdebug("The Database has \(airportList.count) Airports, and here they are: ")
+    printdebug("")
+    printdebug("/----------------------------------------------------------------------\\".lightGreen)
+    printdebug("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|".lightGreen)
+    printdebug("\\----------------------------------------------------------------------/".lightGreen)
+    printdebug("")
+
+    printdebug("The Database has \(airportList.count) Airports, and here they are: ")
+    printdebug("")
+
+    for (index, airpoirt) in airportList.enumerated() {
+        printdebug("Airport number \(index+1): \(airpoirt.city) has \(airpoirt.flights.count) flights ")
+        printdebug("----------------------------------------------------------------")
+        printdebug(airpoirt.flights)
+        printdebug("----------------------------------------------------------------")
         printdebug("")
-
-        for (index, airpoirt) in airportList.enumerated() {
-            printdebug("Airport number \(index+1): \(airpoirt.city) has \(airpoirt.flights.count) flights ")
-            printdebug("----------------------------------------------------------------")
-            printdebug(airpoirt.flights)
-            printdebug("----------------------------------------------------------------")
-            printdebug("")
-        }
-
     }
 
 }

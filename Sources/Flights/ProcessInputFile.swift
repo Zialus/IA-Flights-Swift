@@ -14,9 +14,9 @@ func processFile () {
 
         print("File opened successfuly!".lightGreen)
 
-        printfulldebug("\n\(ANSI.cyan)######BEGINNING OF FILE CONTENT######\(ANSI.reset)")
+        printfulldebug("\n######BEGINNING OF FILE CONTENT######".cyan)
         printfulldebug(fileContent!)
-        printfulldebug("\(ANSI.cyan)######END OF FILE CONTENT######\(ANSI.reset)\n")
+        printfulldebug("######END OF FILE CONTENT######\n".cyan)
 
         let delimiter = "."
         let linesList = fileContent!.components(separatedBy: delimiter)
@@ -24,11 +24,11 @@ func processFile () {
         // Each line of the linesList has a source and destination airport and flight info
         for line in linesList {
 
-            printfulldebug("\(ANSI.cyan)~~~~~~~~~~~~~~~~BEGINNING OF LINE~~~~~~~~~~~~~~~~\(ANSI.reset)")
+            printfulldebug("~~~~~~~~~~~~~~~~BEGINNING OF LINE~~~~~~~~~~~~~~~~".cyan)
 
-            printfulldebug("\(ANSI.yellow)$$$$$$--FULL LINE--$$$$$$$\(ANSI.reset)")
+            printfulldebug("$$$$$$--FULL LINE--$$$$$$$".yellow)
             printfulldebug(line)
-            printfulldebug("\(ANSI.yellow)$$$$$$--END OF IT--$$$$$$$\(ANSI.reset)")
+            printfulldebug("$$$$$$--END OF IT--$$$$$$$".yellow)
 
             // CLEAN THE STRING
             let newline1 = line.replacingOccurrences(of: "timetable(", with: "")
@@ -68,7 +68,7 @@ func processFile () {
 
                 for wholeInfo in listOfInfos {
 
-                    printfulldebug("\(ANSI.magenta)--------:START:-------\(ANSI.reset)")
+                    printfulldebug("--------:START:-------".magenta)
 
                     let delimiter = "/"
                     let infos = wholeInfo.components(separatedBy: delimiter)
@@ -121,20 +121,20 @@ func processFile () {
 
                     }
 
-                    printfulldebug("\(ANSI.magenta)--------:OVER:--------\(ANSI.reset)")
+                    printfulldebug("--------:OVER:--------".magenta)
 
                 }
 
             }
 
-            printfulldebug("\(ANSI.cyan)~~~~~~~~~~~~~~~~END OF LINE~~~~~~~~~~~~~~~~~~~~~~\(ANSI.reset)")
+            printfulldebug("~~~~~~~~~~~~~~~~END OF LINE~~~~~~~~~~~~~~~~~~~~~~".cyan)
         }
 
-        printdebug(ANSI.lightGreen)
-        printdebug("/----------------------------------------------------------------------\\")
-        printdebug("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|")
-        printdebug("\\----------------------------------------------------------------------/")
-        printdebug(ANSI.reset)
+        printdebug("")
+        printdebug("/----------------------------------------------------------------------\\".lightGreen)
+        printdebug("|-------EVERYTHING HAS BEEN PROCESSED!! HERE IS THE FINAL RESULT-------|".lightGreen)
+        printdebug("\\----------------------------------------------------------------------/".lightGreen)
+        printdebug("")
 
         printdebug("The Database has \(airportList.count) Airports, and here they are: ")
         printdebug("")

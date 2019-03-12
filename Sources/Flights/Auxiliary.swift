@@ -22,13 +22,13 @@ func minsToTime(_ timeInt: Int) -> (String) {
 
 }
 
-func printdebug(_ string: Any) -> Void {
+func printdebug(_ string: Any) {
     if DEBUG == true {
         print(string)
     }
 }
 
-func printfulldebug(_ string: Any) -> Void {
+func printfulldebug(_ string: Any) {
     if FULLDEBUG == true {
         print(string)
     }
@@ -61,7 +61,7 @@ func dayAfter(_ day: String) -> (String) {
 
 }
 
-func listOfDaysPrettyPrinting(_ listOfDays: Set<String>) -> Void {
+func listOfDaysPrettyPrinting(_ listOfDays: Set<String>) {
 
     for day in listOfDays {
         switch day {

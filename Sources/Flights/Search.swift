@@ -26,7 +26,7 @@ func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
 
 }
 
-func findRouteSameDay(origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) -> Void {
+func findRouteSameDay(origin: String, arrival: String, currentDay: String, currentCity: String, currentTime: Int) {
 
     if currentCity==arrival {
         printfulldebug("----------Found an answer--------START----------")

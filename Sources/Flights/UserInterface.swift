@@ -57,7 +57,7 @@ func welcomeMessage() {
     print(welcomeMessage.blue)
 }
 
-func proccessCmdLineArgs() -> Void {
+func proccessCmdLineArgs() {
 
     if CommandLine.arguments.count < 2 {
         print()
@@ -142,7 +142,7 @@ func menu() -> (Int) {
 
 }
 
-func searchDirectFlights() -> Void {
+func searchDirectFlights() {
 
     let (origin, destination) = readOriginDestinationInput()
 
@@ -161,7 +161,7 @@ func searchDirectFlights() -> Void {
 
 }
 
-func searchRoutes() -> Void {
+func searchRoutes() {
 
     let (origin, destination) = readOriginDestinationInput()
     let day = readDayInput()
@@ -198,7 +198,7 @@ func searchRoutes() -> Void {
 
 }
 
-func searchCircuits() -> Void {
+func searchCircuits() {
 
     let (origin, destination) = readOriginDestinationInput()
     let day = readDayInput()

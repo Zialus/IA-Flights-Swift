@@ -18,8 +18,8 @@ extension Airport: CustomStringConvertible {
 }
 
 extension Airport: Hashable {
-    var hashValue: Int {
-        return self.city.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(city)
     }
 }
 

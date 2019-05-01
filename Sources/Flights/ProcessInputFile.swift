@@ -111,7 +111,7 @@ func processFile () {
                 let flight = FlightInfo(code: tmp_code, destination: flightDestination, timeLeaving: tmp_timeLeaving, timeArrival: tmp_timeArrival, days: tmp_days)
 
                 let tmp_airport_hack = Airport(city: flightSource)
-                let indexAirport = airportList.index(of: tmp_airport_hack)
+                let indexAirport = airportList.firstIndex(of: tmp_airport_hack)
                 airportList[indexAirport!].flights.append(flight)
 
                 for info in infos {

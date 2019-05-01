@@ -8,7 +8,7 @@ func findDirectFlight(origin: String, destination: String) -> (Set<String>) {
 
     if airportList.contains(airportOrigin) {
 
-        let indexAirport = airportList.index(of: airportOrigin)
+        let indexAirport = airportList.firstIndex(of: airportOrigin)
 
         for flight in airportList[indexAirport!].flights where flight.destination == destination {
 
@@ -40,7 +40,7 @@ func findRouteSameDay(origin: String, arrival: String, currentDay: String, curre
 
     if airportList.contains(airportCity) {
 
-        let indexAirport = airportList.index(of: airportCity)
+        let indexAirport = airportList.firstIndex(of: airportCity)
 
         for flight in airportList[indexAirport!].flights where flight.days[currentDay] == true {
 

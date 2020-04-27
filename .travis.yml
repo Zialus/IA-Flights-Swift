@@ -1,15 +1,18 @@
 language: generic
-env: SWIFT_VERSION=5.0.1
+env: SWIFT_VERSION=5.2.2
 
-matrix:
+jobs:
   include:
     - os: linux
       dist: xenial
     - os: osx
-      osx_image: xcode10.2 # Mojave
+      osx_image: xcode11.3 # Mojave
+    - os: osx
+      osx_image: xcode11.4 # Catalina
 
 install:
   - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+
 script:
   - make
   - make test

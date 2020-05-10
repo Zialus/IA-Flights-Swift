@@ -1,5 +1,4 @@
-*.xcodeproj
 .build/
-DerivedData/
+.swiftpm/
 Package.resolved
 Flights

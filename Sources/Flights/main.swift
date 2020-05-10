@@ -36,7 +36,7 @@ while true {
         print("Show me the way way out!!!")
         exit(0)
     default:
-        print ("Invalid option!")
+        print("Invalid option!")
         usleep(600000)
     }
 

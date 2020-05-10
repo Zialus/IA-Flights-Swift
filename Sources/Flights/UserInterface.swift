@@ -258,7 +258,7 @@ func searchCircuits() {
 
             for (index, element) in result.enumerated() {
 
-                if (index == 0) { print ("| Starting the route from: \(element) ", terminator: "\n")}
+                if (index == 0) { print("| Starting the route from: \(element) ", terminator: "\n")}
                 else if (index%2 != 0) { print("| Catching a flight [ \(dayPrettyPrinting(element)) ]", terminator: "") }
                 else if (index%2 == 0) { print(" to arrive at [ \(element) ] ", terminator: "\n") }
 

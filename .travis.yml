@@ -5,10 +5,16 @@ jobs:
   include:
     - os: linux
       dist: xenial
+      name: Ubuntu 16.04
+    - os: linux
+      dist: bionic
+      name: Ubuntu 18.04
     - os: osx
-      osx_image: xcode11.3 # Mojave
+      osx_image: xcode11.3
+      name: Mojave
     - os: osx
-      osx_image: xcode11.4 # Catalina
+      osx_image: xcode11.4
+      name: Catalina
 
 install:
   - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"

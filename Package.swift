@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Flights",
     dependencies: [
-        .package(url: "https://github.com/onevcat/Rainbow.git", from: "4.0.1")
+        .package(url: "https://github.com/onevcat/Rainbow.git", from: "4.2.1")
     ],
     targets: [
         .executableTarget(
